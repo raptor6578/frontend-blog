@@ -1,0 +1,49 @@
+.footer {
+  display: flex;
+  align-items: flex-end;
+  background-color: #fff;
+  height: 120px;
+  margin-top: 20px;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+footer p:nth-child(1) {
+  margin-bottom: 7px;
+  color: rgb(135, 135, 135);
+  font-size: 15px;
+}
+
+footer p:nth-child(2) {
+  color: rgb(135, 135, 135);
+  font-size: 20px;
+}
+
+footer i:nth-child(1) {
+  color: rgb(255, 0, 0);  
+}
+
+footer i:nth-child(2) {
+  color: rgb(0, 0, 255);  
+}
+
+footer i:nth-child(3) {
+  color: rgb(38, 160, 93);  
+}
+
+footer i:nth-child(4) {
+  color: rgb(47, 122, 125);  
+}
+
+@media (max-width: 1319px) {
+  .footer {
+    padding: 0 20px;
+  }
+}

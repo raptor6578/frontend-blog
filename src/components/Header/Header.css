@@ -1,0 +1,48 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.header {
+  background-color: #fff;
+}
+
+.logo i {
+  color: rgb(176, 176, 176);
+}
+
+.logo span {
+  color: rgb(103, 103, 103);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header-right i {
+  margin-right: 7px;
+}
+
+@media (max-width: 1319px) {
+
+  .header {
+    padding: 0 20px;
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .header-right {
+    margin-top: 10px; 
+  }
+
+  header {
+    flex-direction: column;
+  }
+
+}

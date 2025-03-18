@@ -1,0 +1,14 @@
+.social-container {
+  padding: 10px;
+}
+
+.social-container i {
+  color: rgb(73, 122, 169);
+}
+
+@media (max-width: 750px) {
+  .social-container {
+    display: none;
+  }
+}
+

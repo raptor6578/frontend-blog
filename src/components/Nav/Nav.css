@@ -1,0 +1,50 @@
+.nav {
+  display: flex;
+  align-items: center;
+  background-color: rgb(73, 122, 169);
+  height: 40px;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  display: flex;
+}
+
+nav ul li:hover {
+  background-color: rgb(85, 133, 177);
+}
+
+nav ul li a {
+  color: #ffffffe2;
+  text-decoration: none;
+  padding: 10px;
+
+}
+
+@media (max-width: 1319px) {
+
+  .nav {
+    padding: 0 20px;
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .nav ul {
+    margin: 0 auto;
+  }  
+  
+}

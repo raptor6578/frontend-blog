@@ -1,0 +1,16 @@
+main {
+  max-width: 1300px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+@media (max-width: 650px) {
+
+  main {
+    padding: 10px; 
+  }
+  
+}
