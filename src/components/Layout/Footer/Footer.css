@@ -14,7 +14,10 @@ footer {
   margin: 0 auto;
   padding: 10px;
 }
-
+footer i {
+  padding-left: 5px;
+  padding-right: 5px;
+}
 footer p:nth-child(1) {
   margin-bottom: 7px;
   color: rgb(135, 135, 135);

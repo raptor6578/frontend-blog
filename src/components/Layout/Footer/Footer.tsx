@@ -13,6 +13,6 @@ const Footer: React.FC = () => (
       </p>
     </footer>
   </div>
-);
+)
 
 export default Footer

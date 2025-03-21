@@ -8,3 +8,7 @@ body {
   background-color: rgb(21, 33, 57);
   color: rgb(71, 70, 70)
 }
+
+a, a:visited, a:active {
+  color: inherit;
+}
