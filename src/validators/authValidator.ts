@@ -28,6 +28,7 @@ export function signUpValidator(email: string, password: string) {
       }
     }).filter((item): item is { message: string; type: string } => item !== undefined)
   }
+  return []
 }
 
 export function signInValidator(email: string, password: string) {
