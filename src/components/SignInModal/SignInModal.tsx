@@ -12,36 +12,43 @@ const SignInModal: React.FC = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [errors, setErrors] = useState<string[]>([])
-    
+    const addErrors = (message: string) => setErrors(errors => [...errors, message])
+    const clearErrors = () => setErrors([])
     const { login } = useAuth()!
     const { modalIsOpen, closeModal } = useModal()!
     const { openSpinner, closeSpinner } = useSpinner()!
+    const afterOpenModal = () => clearErrors() 
 
-    const handleSetErrors = (message: string) => {
-      setErrors(errors => [...errors, message])
-    }
+    const validatorErrors = (email: string, password: string) => {
+      const validatorErrors = signInValidator(email, password)
+      validatorErrors.forEach(error => addErrors(error.message))
+      if (validatorErrors.length > 0) { 
+        return true 
+      } else {
+        return false
+      }
+    } 
 
-    const afterOpenModal = () => {
-      setErrors([])
-    }
-
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      setErrors([])
-      const errorsValidator = signInValidator(email, password)
-      errorsValidator.forEach(error => handleSetErrors(error.message))
-      if (errorsValidator.length > 0) return
+    const auth = async (email: string, password: string) => {
       try {
         openSpinner()
         await login(email, password)
         closeSpinner()
         closeModal()
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
+        if (axios.isAxiosError(error)) {
           closeSpinner()
-          handleSetErrors(error.response.data.message)
+           const errorMessage = error.response ? error.response.data.message : "Une erreur réseau est survenue."
+          addErrors(errorMessage)
         }
       }
+    }
+    
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      clearErrors()
+      if (validatorErrors(email, password)) return
+      auth(email, password)
     }
 
     return (
@@ -59,17 +66,13 @@ const SignInModal: React.FC = () => {
           </div>
           <div className="container-signin">
             <h2>Connexion</h2>
-
             {(errors.length > 0) && 
             <div className='error'> 
-            
             { errors.map((error, index) => ( 
               <p key={index}><span role="img" aria-label="Erreur">❌</span> {error}</p>
             ))}
-            
             </div>
             }
-
             <form onSubmit={handleSubmit}>
               <label htmlFor="email">Email</label>
               <input 
@@ -93,7 +96,6 @@ const SignInModal: React.FC = () => {
               <p>Vous n'avez pas de compte ? <a href="#">Inscrivez-vous</a></p>
               <p>Mot de passe oublié ? <a href="#">Réinitialisez-le</a></p>
             </div>
-
             <div className="oauth">
             <span className="facebook"><i className="fa-brands fa-facebook"></i></span>
             <span className="google"><i className="fa-brands fa-google"></i></span>

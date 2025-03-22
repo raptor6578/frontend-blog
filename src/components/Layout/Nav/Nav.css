@@ -42,9 +42,4 @@ nav ul li a {
 }
 
 @media (max-width: 650px) {
-
-  .nav ul {
-    margin: 0 auto;
-  }  
-  
 }
