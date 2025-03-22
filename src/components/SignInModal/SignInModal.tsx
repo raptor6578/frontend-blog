@@ -3,6 +3,7 @@ import './SignInModal.css'
 import Modal from 'react-modal'
 import useAuth from '../../contexts/Auth/useAuth'
 import useModal from '../../contexts/Modal/useModal'
+import useSpinner from '../../contexts/Spinner/useSpinner'
 import { signInValidator } from '../../validators/authValidator'
 import axios from 'axios'
 
@@ -10,25 +11,35 @@ const SignInModal: React.FC = () => {
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [errors, setErrors] = useState({ email: '', password: '' })
+    const [errors, setErrors] = useState<string[]>([])
     
     const { login } = useAuth()!
     const { modalIsOpen, closeModal } = useModal()!
+    const { openSpinner, closeSpinner } = useSpinner()!
 
-    const handleSetErrors = (params: {message: string, type: string}) => {
-      setErrors(prev => ({ ...prev, [params.type]: params.message }));
+    const handleSetErrors = (message: string) => {
+      setErrors(errors => [...errors, message])
+    }
+
+    const afterOpenModal = () => {
+      setErrors([])
     }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault()
-      setErrors({ email: '', password: '' })
-      signInValidator(email, password).forEach(error => handleSetErrors(error))
+      setErrors([])
+      const errorsValidator = signInValidator(email, password)
+      errorsValidator.forEach(error => handleSetErrors(error.message))
+      if (errorsValidator.length > 0) return
       try {
+        openSpinner()
         await login(email, password)
+        closeSpinner()
         closeModal()
       } catch (error) {
         if (axios.isAxiosError(error) && error.response) {
-          handleSetErrors(error.response.data as {message: string, type: string})
+          closeSpinner()
+          handleSetErrors(error.response.data.message)
         }
       }
     }
@@ -39,16 +50,28 @@ const SignInModal: React.FC = () => {
           contentLabel="Connexion"
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
+          onAfterOpen={afterOpenModal}
           className="signin"
           overlayClassName="overlay"
         >
           <div className="close-modal">
             <button onClick={closeModal}>X</button>
           </div>
-          <div className="container">
+          <div className="container-signin">
             <h2>Connexion</h2>
+
+            {(errors.length > 0) && 
+            <div className='error'> 
+            
+            { errors.map((error, index) => ( 
+              <p key={index}><span role="img" aria-label="Erreur">❌</span> {error}</p>
+            ))}
+            
+            </div>
+            }
+
             <form onSubmit={handleSubmit}>
-              <label htmlFor="email">Email {errors.email && <span className='error'>{errors.email}</span>}</label>
+              <label htmlFor="email">Email</label>
               <input 
                 type="email" 
                 id="email" 
@@ -56,7 +79,7 @@ const SignInModal: React.FC = () => {
                 value={email} 
                 onInput={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} 
               />
-              <label htmlFor="password">Mot de passe {errors.password && <span className='error'>{errors.password}</span>}</label>
+              <label htmlFor="password">Mot de passe</label>
               <input 
                 type="password" 
                 id="password" 

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import AppRoutes from './AppRoutes'
 import SignUpModal from './components/SignInModal/SignInModal'
+import Spinner from './components/Spinner/Spinner'
 
 const App: React.FC = () => {
 
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         </Routes>
       </Layout>
       <SignUpModal />
+      <Spinner />
     </BrowserRouter>
   )
   

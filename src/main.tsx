@@ -5,15 +5,18 @@ import App from './App.tsx'
 import ModalProvider from './contexts/Modal/ModalProvider.tsx'
 import AuthProvider from './contexts/Auth/AuthProvider.tsx'
 import Modal from 'react-modal'
+import SpinnerProvider from './contexts/Spinner/SpinnerProvider.tsx'
 
 Modal.setAppElement('#root');
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
-      <ModalProvider>
-        <App />
-      </ModalProvider>
+      <SpinnerProvider>
+        <ModalProvider>
+          <App />
+        </ModalProvider>
+      </SpinnerProvider>
     </AuthProvider>
   </StrictMode>,
 )
