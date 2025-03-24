@@ -33,13 +33,10 @@ const ArticlePost = () => {
     const editor = useEditor({
       extensions: [
         StarterKit.configure({
-          heading: {
-            levels: [1, 2, 3],
-          },
+          heading: {levels: [1, 2, 3]},
           codeBlock: false,
           code: false,
         }),
-        Underline,
         TextAlign.configure({
           types: ['heading', 'paragraph'],
         }),
@@ -52,8 +49,9 @@ const ArticlePost = () => {
         CustomImage,
         TextStyle,
         Color,
+        Underline
       ],
-      content: '',
+      content: ''
     })
 
     const handleImageSelected = (file: File) => {
