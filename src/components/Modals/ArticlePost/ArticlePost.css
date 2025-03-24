@@ -118,6 +118,15 @@
   outline: none;
 }
 
+pre {
+  background: #f5f5f5;
+  padding: 1em;
+  border-radius: 6px;
+  font-family: monospace;
+  white-space: pre;
+  overflow-x: auto;
+}
+
 @media (max-width: 1200px) {
   .close-modal {
     display: flex;

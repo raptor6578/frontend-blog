@@ -12,6 +12,8 @@ import TextAlign from '@tiptap/extension-text-align'
 import Link from '@tiptap/extension-link'
 import TextStyle from '@tiptap/extension-text-style'
 import Color from '@tiptap/extension-color'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import { common, createLowlight } from 'lowlight'
 
 
 const ArticlePost = () => {
@@ -34,6 +36,8 @@ const ArticlePost = () => {
           heading: {
             levels: [1, 2, 3],
           },
+          codeBlock: false,
+          code: false,
         }),
         Underline,
         TextAlign.configure({
@@ -42,9 +46,12 @@ const ArticlePost = () => {
         Link.configure({
           openOnClick: false,
         }),
+        CodeBlockLowlight.configure({
+          lowlight: createLowlight(common),
+        }),
         CustomImage,
         TextStyle,
-        Color
+        Color,
       ],
       content: '',
     })

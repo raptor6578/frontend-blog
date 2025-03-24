@@ -7,12 +7,18 @@ type Props = {
 }
 
 const TipTapToolbar = ({ editor, onImageSelected }: Props) => {
-  const inputRef = useRef<HTMLInputElement>(null)
+
+  const inputFileRef = useRef<HTMLInputElement>(null)
+  const inputColorRef = useRef<HTMLInputElement>(null)
 
   if (!editor) return null
 
-  const handleClick = () => {
-    inputRef.current?.click()
+  const handleFileClick = () => {
+    inputFileRef.current?.click()
+  }
+
+  const handleColorClick = () => {
+    inputColorRef.current?.click()
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,22 +63,22 @@ const TipTapToolbar = ({ editor, onImageSelected }: Props) => {
         }
       }}>🔗 Lien</button>
       <button onClick={() => editor.chain().focus().unsetLink().run()} disabled={!editor.isActive('link')}>❌ Lien</button>
-      <button onClick={() => editor.chain().focus().toggleCodeBlock().run()} className={editor.isActive('codeBlock') ? 'active' : ''}>Code</button>
+      <button onClick={() => editor.chain().focus().setCodeBlock().run()} className={editor.isActive('codeBlock') ? 'active' : ''}>Code</button>
       <button onClick={() => editor.chain().focus().setParagraph().run()} className={editor.isActive('paragraph') ? 'active' : ''}>Paragraphe</button>
       <button onClick={() => editor.chain().focus().clearNodes().run()}>🧹 Effacer bloc</button>
       <button onClick={() => editor.chain().focus().unsetAllMarks().run()}>🧽 Effacer styles</button>
-      <button onClick={handleClick}>📷 Image</button>
+      <button onClick={handleFileClick}>📷 Image</button>
       <input
         type="file"
         accept="image/*"
-        ref={inputRef}
+        ref={inputFileRef}
         onChange={handleFileChange}
         className="hidden"
       />
-      <button onClick={handleClick}>🎨 Couleur</button>
+      <button onClick={handleColorClick}>🎨 Couleur</button>
       <input 
         type="color" 
-        ref={inputRef}
+        ref={inputColorRef}
         onChange={(e) => editor.chain().focus().setColor(e.target.value).run()}
         title="Changer la couleur du texte"
         className="hidden"
