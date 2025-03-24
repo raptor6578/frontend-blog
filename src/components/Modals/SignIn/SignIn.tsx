@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import './SignInModal.css'
+import './SignIn.css'
 import Modal from 'react-modal'
-import useAuth from '../../contexts/Auth/useAuth'
-import useModal from '../../contexts/Modal/useModal'
-import useSpinner from '../../contexts/Spinner/useSpinner'
-import { signInValidator } from '../../validators/authValidator'
+import useAuth from '../../../contexts/Auth/useAuth'
+import useModal from '../../../contexts/Modal/useModal'
+import useSpinner from '../../../contexts/Spinner/useSpinner'
+import { signInValidator } from '../../../validators/authValidator'
 import axios from 'axios'
 
-const SignInModal: React.FC = () => {
+const SignIn: React.FC = () => {
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
@@ -80,6 +80,7 @@ const SignInModal: React.FC = () => {
                 id="email" 
                 name="email" 
                 value={email} 
+                className="input-text"
                 onInput={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} 
               />
               <label htmlFor="password">Mot de passe</label>
@@ -88,9 +89,10 @@ const SignInModal: React.FC = () => {
                 id="password" 
                 name="password" 
                 value={password} 
+                className="input-text"
                 onInput={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} 
               />
-              <button type="submit">Connexion</button>
+              <button className="blue-button" type="submit">Connexion</button>
             </form>
             <div className="actions">
               <p>Vous n'avez pas de compte ? <a href="#">Inscrivez-vous</a></p>
@@ -108,4 +110,4 @@ const SignInModal: React.FC = () => {
   )
 }
 
-export default SignInModal
+export default SignIn

@@ -1,0 +1,145 @@
+.article-post {
+  max-width: 1300px;
+  height: 80%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  background-color: white;
+  z-index: 2;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.close-modal {
+  display: flex;
+  height: 30px;
+  background-color:rgb(85, 133, 177);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-modal button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.container-article-post {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(73, 73, 73);
+}
+
+.container-article-post form {
+  max-height: 100%;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  height: 100%;
+  padding: 30px;
+}
+
+.container-article-post form h2 {
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.container-article-post form input[type="text"] {
+  width: 100%;
+  height: 30px;
+  border: none;
+  border: 1px solid rgb(145, 145, 145);
+  outline: none;
+}
+
+.container-article-post form .toolbar {
+  border-left: 1px solid rgb(145, 145, 145);
+  border-right: 1px solid rgb(145, 145, 145);
+}
+
+.container-article-post form .toolbar button {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  cursor: pointer;
+}
+.container-article-post form .toolbar button.active {
+  background: #0070f3;
+  color: white;
+}
+
+.container-article-post form .toolbar input[type="color"] {
+  width: '32px';
+  height: '32px';
+  padding: 0;
+  border: '1px solid #ccc';
+  border-radius: '4px';
+  cursor: 'pointer';
+}
+
+.container-article-post form .toolbar .hidden {
+  display: none;
+}
+
+.container-article-post form .editor {
+  border: 1px solid rgb(145, 145, 145);
+  height: 100%;
+  overflow: auto;
+  padding: 10px;
+  
+}
+
+.container-article-post form .editor .ProseMirror {
+  height: 100%;
+  overflow: auto;
+}
+
+.container-article-post form .editor .ProseMirror:focus {
+  outline: none;
+}
+
+@media (max-width: 1200px) {
+  .close-modal {
+    display: flex;
+  }
+  .article-post {
+    width: 100%;
+    height: 100%;
+  }
+  .container-article-post form {
+    padding: 30px;
+  }
+  .container-article-post form h2 {
+    margin-bottom: 30px;
+  }
+
+}
+
+@media (max-width: 500px) {
+  .container-article-post form {
+    padding: 20px;
+  }
+  .container-article-post form h2 {
+    margin-bottom: 20px;
+  }
+}

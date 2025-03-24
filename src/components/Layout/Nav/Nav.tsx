@@ -2,21 +2,29 @@ import React from "react"
 import "./Nav.css"
 import useModal from '../../../contexts/Modal/useModal'
 import useAuth from '../../../contexts/Auth/useAuth'
+import { Link } from "react-router-dom"
 
 const Nav: React.FC = () => {
 
-  const { openModal } = useModal()!
+  const { openModal, openSignUpModal, openArticlePostModal } = useModal()!
   const { isAuthenticated, logout } = useAuth()!
 
   return (
     <div className="nav">
       <nav>
         <ul>
-          <li><a>Articles</a></li>
-          <li>
-            {isAuthenticated ? <a onClick={logout}>Déconnexion</a> : <a onClick={openModal}>Connexion</a>}
-          </li>
-          {!isAuthenticated && <li><a>Inscription</a></li>}
+          <li><Link className="nav-links" to="/">Accueil</Link></li>
+            {isAuthenticated ? 
+            <>
+             <li><a className="nav-links" onClick={logout}>Déconnexion</a></li>
+             <li><a className="nav-links" onClick={openArticlePostModal}>Déposer un article</a></li>
+            </>
+            : 
+            <>
+              <li><a className="nav-links" onClick={openModal}>Connexion</a></li>
+              <li><a className="nav-links" onClick={openSignUpModal}>Inscription</a></li>
+            </>
+            }
         </ul>
       </nav>
     </div>

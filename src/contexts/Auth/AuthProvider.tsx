@@ -27,13 +27,23 @@ const AuthProvider: React.FC<ModalProviderProps> = ({ children }) => {
     }
   }
 
+  const register = async (email: string, password: string) => {
+    try {
+      return await AuthService.register(email, password)
+    } catch (error) {
+      if (error) {
+        throw error
+      }
+    }
+  }
+
   const logout = () => {
     AuthService.logout()
     setIsAuthenticated(false)
   }
 
   return (
-    <AuthContext.Provider value={{ login, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ login, register, logout, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   )

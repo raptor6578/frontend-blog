@@ -8,10 +8,14 @@ const password = Joi.string().min(8).required().messages({
   'string.min': 'Votre mot de passe doit contenir au moins 8 caractères.',
   'string.empty': 'Un mot de passe est requis.'
 })
+const passwordConfirm = Joi.string().valid(Joi.ref('password')).messages({
+  'any.only': 'Les mots de passe ne correspondent pas.'
+})
 
 const signUpSchema = Joi.object({
     email: email,
     password: password,
+    passwordConfirm: passwordConfirm
 })
 
 const signInSchema = Joi.object({
@@ -19,8 +23,11 @@ const signInSchema = Joi.object({
     password: password
 })
 
-export function signUpValidator(email: string, password: string) {
-  const { error } = signUpSchema.validate({ email, password }, { abortEarly: false })
+export function signUpValidator(email: string, password: string, passwordConfirm: string) {
+  if (!passwordConfirm) {
+    return [{ message: "Veuillez confirmer votre mot de passe.", type: "passwordConfirm" }]
+  }
+  const { error } = signUpSchema.validate({ email, password, passwordConfirm }, { abortEarly: false })
   if (error) {
     return error.details.map(err => {
       if (err.path && err.path.length > 0) {

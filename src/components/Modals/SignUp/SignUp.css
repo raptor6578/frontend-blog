@@ -1,4 +1,4 @@
-.signin {
+.signup {
   width: 350px;
   position: fixed;
   top: 50%;
@@ -36,17 +36,17 @@
   cursor: pointer;
   padding: 5px;
 }
-.container-signin {
+.container-signup {
   display: flex;
   flex-direction: column;
   align-items: center;
   color: rgb(73, 73, 73);
 }
-.container-signin h2 {
+.container-signup h2 {
   margin-bottom: 50px;
 }
 
-.container-signin .error {
+.container-signup .error {
   background-color: rgba(255, 0, 0, 0.1);
   border-radius: 4px;
   color: red;
@@ -59,72 +59,54 @@
   padding: 10px;
 }
 
-.container-signin .error p {
+.container-signup .success {
+  background-color: rgba(0, 0, 255, 0.1);
+  border-radius: 4px;
+  color: blue;
+  font-size: 14px;
+  width: 100%;
+  margin-bottom: 50px;
+  border: 1px solid rgba(64, 64, 223, 0.5);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.container-signup .error p,
+.container-signup .success p {
   margin: 5px;
 }
 
-.container-signin form {
+.container-signup form {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.container-signin form input {
+.container-signup form input {
   width: 100%;
   margin-top: 5px;
   margin-bottom: 15px;
 }
 
-.container-signin form input[type="email"], 
-.container-signin form input[type="password"] {
-  height: 30px;
-  border: none;
-  border-bottom: 1px solid rgb(145, 145, 145);
-  outline: none;
-}
-
-.container-signin form button {
-  width: 100%;
-  height: 50px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: rgb(85, 133, 177);
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.actions{
-  margin-top: 30px;
-}
-
-.actions p {
-  font-size: 13px;
-  margin-top: 10px;
-}
-
-.container-signin .oauth {
+.container-signup .oauth {
   padding-top: 30px;
 }
 
-.container-signin .oauth i {
+.container-signup .oauth i {
   margin: 10px;
   font-size: 30px;
 }
 
-.container-signin .oauth .facebook {
+.container-signup .oauth .facebook {
   color: #3b5998;
 }
 
-.container-signin .oauth .google {
+.container-signup .oauth .google {
   color: #db4437;
 }
 
-.container-signin .oauth .twitter {
+.container-signup .oauth .twitter {
   color: #00acee;
 }
 
@@ -132,11 +114,11 @@
   .close-modal {
     display: flex;
   }
-  .signin {
+  .signup {
     width: 100%;
     height: 100%;
   }
-  .container-signin {
+  .container-signup {
     padding: 20px;
   }
 }
