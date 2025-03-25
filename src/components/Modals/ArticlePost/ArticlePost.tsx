@@ -5,7 +5,7 @@ import useModal from '../../../contexts/Modal/useModal'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import slugify from 'speakingurl'
-import CustomImage from './CustomImage'
+import ExtendAttributesImage from './ExtendAttributesImage'
 import TipTapToolbar from './ToolBar'
 import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
@@ -13,7 +13,10 @@ import Link from '@tiptap/extension-link'
 import TextStyle from '@tiptap/extension-text-style'
 import Color from '@tiptap/extension-color'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import 'highlight.js/styles/github.css'
 import { common, createLowlight } from 'lowlight'
+import ExitCode from './ExitCode'
+import ResizableImage from './ResizableImage'
 
 
 const ArticlePost = () => {
@@ -32,24 +35,16 @@ const ArticlePost = () => {
 
     const editor = useEditor({
       extensions: [
-        StarterKit.configure({
-          heading: {levels: [1, 2, 3]},
-          codeBlock: false,
-          code: false,
-        }),
-        TextAlign.configure({
-          types: ['heading', 'paragraph'],
-        }),
-        Link.configure({
-          openOnClick: false,
-        }),
-        CodeBlockLowlight.configure({
-          lowlight: createLowlight(common),
-        }),
-        CustomImage,
+        StarterKit.configure({ heading: {levels: [1, 2, 3]}, codeBlock: false, code: false }),
+        TextAlign.configure({ types: ['heading', 'paragraph'] }),
+        Link.configure({ openOnClick: false }),
+        CodeBlockLowlight.configure({lowlight: createLowlight(common),}),
+        ExtendAttributesImage,
+        ResizableImage,
         TextStyle,
         Color,
-        Underline
+        Underline,
+        ExitCode,
       ],
       content: ''
     })
@@ -123,8 +118,8 @@ const ArticlePost = () => {
                 <button onClick={closeArticlePostModal}>X</button>
           </div>
           <div className="container-article-post">
-            <form onSubmit={handleSubmit}>
-              <h2>📰 Déposer un article</h2>
+            <h2>📰 Déposer un article</h2>
+            <form onSubmit={handleSubmit}>  
               <input onChange={handleTitle} type="text" name="title" />
               <TipTapToolbar editor={editor} onImageSelected={handleImageSelected} />
               <EditorContent editor={editor} className="editor" />

@@ -1,8 +1,9 @@
-import { ReactNodeViewRenderer, NodeViewProps } from '@tiptap/react'
 import Image from '@tiptap/extension-image'
-import ResizableImageComponent from './ResizableImageComponent'
 
-const CustomImage = Image.extend({
+const ExtendAttributesImage = Image.extend({
+
+  name: 'extendedAttributesImage',
+
   addAttributes() {
     return {
       ...this.parent?.(),
@@ -16,12 +17,6 @@ const CustomImage = Image.extend({
       },
     }
   },
-
-  addNodeView() {
-    return ReactNodeViewRenderer(
-      ResizableImageComponent as unknown as React.ComponentType<NodeViewProps>
-    )
-  },
 })
 
-export default CustomImage
+export default ExtendAttributesImage
