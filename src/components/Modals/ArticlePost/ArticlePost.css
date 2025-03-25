@@ -23,7 +23,7 @@
   z-index: 1;
 }
 
-.close-modal {
+.article-post .close-modal {
   display: flex;
   height: 30px;
   background-color:rgb(85, 133, 177);
