@@ -1,6 +1,7 @@
 .article-post {
   max-width: 1300px;
   height: 80%;
+  min-height: 0;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -43,6 +44,7 @@
 
 .container-article-post {
   height: 100%;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,102 +57,6 @@
   margin-top: 30px;
 }
 
-.container-article-post form {
-  max-height: 100%;
-  display: flex;
-  min-height: 0;
-  flex-direction: column;
-  height: 100%;
-  padding: 30px;
-}
-
-
-
-.container-article-post form input[type="text"] {
-  width: 100%;
-  height: 30px;
-  border: none;
-  border: 1px solid rgb(145, 145, 145);
-  outline: none;
-}
-
-.container-article-post form .toolbar {
-  border-left: 1px solid rgb(145, 145, 145);
-  border-right: 1px solid rgb(145, 145, 145);
-}
-
-.container-article-post form .toolbar button {
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  background: #f9f9f9;
-  cursor: pointer;
-}
-.container-article-post form .toolbar button.active {
-  background: #0070f3;
-  color: white;
-}
-
-.container-article-post form .toolbar input[type="color"] {
-  width: '32px';
-  height: '32px';
-  padding: 0;
-  border: '1px solid #ccc';
-  border-radius: '4px';
-  cursor: 'pointer';
-}
-
-.container-article-post form .toolbar .hidden {
-  display: none;
-}
-
-.container-article-post form .editor {
-  border: 1px solid rgb(145, 145, 145);
-  height: 100%;
-  overflow: auto;
-  padding: 10px;
-  
-}
-
-.container-article-post form .editor .ProseMirror {
-  height: 100%;
-  overflow: auto;
-}
-
-.container-article-post form .editor .ProseMirror:focus {
-  outline: none;
-}
-
-pre {
-  background: #f5f5f5;
-  padding: 1em;
-  border-radius: 6px;
-  font-family: monospace;
-  white-space: pre;
-  overflow-x: auto;
-}
-.ProseMirror img {
-  pointer-events: auto;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-.resizable-image span {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 12px;
-  height: 12px;
-  cursor: se-resize;
-  z-index: 10;
-  display: none;
-  background: linear-gradient(135deg, transparent 50%, #d1d1d1 50%);
-}
-
-.resizable-image:hover span {
-  
-  display: block;
-}
-
 @media (max-width: 1200px) {
   .close-modal {
     display: flex;
@@ -159,22 +65,12 @@ pre {
     width: 100%;
     height: 100%;
   }
-  .container-article-post form {
-    padding: 30px;
-  }
-  .container-article-post form h2 {
-    margin-bottom: 30px;
-  }
 
 }
 
 @media (max-width: 500px) {
   .container-article-post h2 {
     margin-top: 20px;
-  }
-
-  .container-article-post form {
-    padding: 20px;
   }
 
 }

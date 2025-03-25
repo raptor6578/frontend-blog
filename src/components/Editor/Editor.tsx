@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 
-import TipTapToolbar from './ToolBar'
-
 import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
 import slugify from 'speakingurl'
+import { common, createLowlight } from 'lowlight'
+import 'highlight.js/styles/github.css'
 
-
+import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
 import Link from '@tiptap/extension-link'
@@ -14,12 +13,11 @@ import TextStyle from '@tiptap/extension-text-style'
 import Color from '@tiptap/extension-color'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 
-import { common, createLowlight } from 'lowlight'
-import 'highlight.js/styles/github.css'
-
 import ExitCode from './Extensions/ExitCode'
 import ResizableImage from './Extensions/ResizableImage'
 import ExtendAttributesImage from './Extensions/ExtendAttributesImage'
+import TipTapToolbar from './ToolBar'
+import './Editor.css'
 
 const Editor = () => {
 
@@ -101,14 +99,18 @@ const Editor = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>  
-    <input onChange={handleTitle} type="text" name="title" />
-    <TipTapToolbar editor={editor} onImageSelected={handleImageSelected} />
-    <EditorContent editor={editor} className="editor" />
-    <button className="blue-button" type="submit">
-      Poster
-    </button>
-    </form>
+    <div className="editor-custom">
+      <form onSubmit={handleSubmit}>  
+        <input onChange={handleTitle} type="text" name="title" />
+        <div className="editor-wrapper">
+          <TipTapToolbar editor={editor} onImageSelected={handleImageSelected} />
+          <EditorContent editor={editor} className="editor" />
+        </div>  
+        <button className="blue-button" type="submit">
+          Poster
+        </button>
+      </form>
+  </div>
   )
 
 }
