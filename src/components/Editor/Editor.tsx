@@ -101,12 +101,12 @@ const Editor = () => {
   return (
     <div className="editor-custom">
       <form onSubmit={handleSubmit}>  
-        <input onChange={handleTitle} type="text" name="title" />
+        <input onChange={handleTitle} type="text" name="title" placeholder="Titre de l'article" />
         <div className="editor-wrapper">
           <TipTapToolbar editor={editor} onImageSelected={handleImageSelected} />
           <EditorContent editor={editor} className="editor" />
         </div>  
-        <button className="blue-button" type="submit">
+        <button className="submit-button" type="submit">
           Poster
         </button>
       </form>

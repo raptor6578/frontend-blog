@@ -22,11 +22,12 @@ const ArticlePost = () => {
           className="article-post"
           overlayClassName="overlay"
         >
-          <div className="close-modal">
-                <button onClick={closeArticlePostModal}>X</button>
+          <div className="modal-header">
+            <h3>📰 Déposer un article</h3> 
+            <button onClick={closeArticlePostModal}>X</button>
           </div>
           <div className="container-article-post">
-            <h2>📰 Déposer un article</h2>
+            <div className="success">✅ Votre article a bien été envoyé, il est actuellement en attente de modération.</div>
             <Editor />
           </div>
         </Modal>
