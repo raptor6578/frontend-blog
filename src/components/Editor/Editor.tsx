@@ -14,14 +14,12 @@ import Color from '@tiptap/extension-color'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 
 import ExitCode from './Extensions/ExitCode'
-import ResizableImage from './Extensions/ResizableImage'
-import ExtendAttributesImage from './Extensions/ExtendAttributesImage'
+import CustomImage from './Extensions/CustomImage'
 import TipTapToolbar from './ToolBar'
 import './Editor.css'
 
 const Editor = () => {
 
-  const [localImages, setLocalImages] = useState<File[]>([])
   const [title, setTitle] = useState<string>('')
 
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,24 +32,20 @@ const Editor = () => {
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
       Link.configure({ openOnClick: false }),
       CodeBlockLowlight.configure({lowlight: createLowlight(common),}),
-      ExtendAttributesImage,
-      ResizableImage,
       TextStyle,
       Color,
       Underline,
       ExitCode,
+      CustomImage
     ],
     content: ''
   })
-
-  const handleImageSelected = (file: File) => {
-    setLocalImages(prev => [...prev, file])
-  }
   
   const prepareHtmlBeforePost = (html: string, title: string) => {
     const slug = slugify(title)
+    const htmlPrepared = html.replace(/<p>\s*<\/p>/g, '<br />')
     const parser = new DOMParser()
-    const doc = parser.parseFromString(html, 'text/html')
+    const doc = parser.parseFromString(htmlPrepared, 'text/html')
   
     doc.querySelectorAll('img[data-filename]').forEach(img => {
       const fileName = img.getAttribute('data-filename')
@@ -59,6 +53,8 @@ const Editor = () => {
   
       img.setAttribute('src', `/${slug}/${encodeURIComponent(fileName)}`)
       img.removeAttribute('data-filename')
+      img.removeAttribute('data-original-src')
+      img.removeAttribute('width')
   
       if (!img.hasAttribute('alt')) {
         img.setAttribute('alt', '')
@@ -66,6 +62,28 @@ const Editor = () => {
     })
   
     return doc.body.innerHTML
+  }
+
+  const getFinalFilesFromHtml = async (html: string): Promise<File[]> => {
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(html, 'text/html')
+  
+    const filePromises: Promise<File>[] = []
+  
+    doc.querySelectorAll('img[data-filename]').forEach((img) => {
+      const filename = img.getAttribute('data-filename') || 'image.png'
+      const src = img.getAttribute('src')
+  
+      if (src && src.startsWith('blob:')) {
+        const promise = fetch(src)
+          .then(res => res.blob())
+          .then(blob => new File([blob], filename, { type: blob.type }))
+
+        filePromises.push(promise)
+      }
+    })
+  
+    return Promise.all(filePromises)
   }
 
   const logFormData = (formData: FormData) => {
@@ -85,16 +103,18 @@ const Editor = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
     const rawHtml = editor?.getHTML()
+    const finalFiles = await getFinalFilesFromHtml(rawHtml ?? '')
     const finalHtml = prepareHtmlBeforePost(rawHtml ?? '', title)
-  
     const formData = new FormData()
-    formData.append('html', finalHtml)
-  
-    localImages.forEach(file => {
+
+    formData.append('content', finalHtml)
+
+    finalFiles.forEach(file => {
       formData.append('images', file)
     })
-  
+   
     logFormData(formData)
   }
 
@@ -103,7 +123,7 @@ const Editor = () => {
       <form onSubmit={handleSubmit}>  
         <input onChange={handleTitle} type="text" name="title" placeholder="Titre de l'article" />
         <div className="editor-wrapper">
-          <TipTapToolbar editor={editor} onImageSelected={handleImageSelected} />
+          <TipTapToolbar editor={editor} />
           <EditorContent editor={editor} className="editor" />
         </div>  
         <button className="submit-button" type="submit">
