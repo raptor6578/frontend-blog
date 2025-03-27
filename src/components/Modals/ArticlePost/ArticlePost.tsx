@@ -3,6 +3,7 @@ import './ArticlePost.css'
 import Modal from 'react-modal'
 import useModal from '../../../contexts/Modal/useModal'
 import Editor from '../../Editor/Editor'
+import { articlePost } from '../../../services/articleService'
 
 const ArticlePost = () => {
 
@@ -28,7 +29,7 @@ const ArticlePost = () => {
           </div>
           <div className="container-article-post">
             <div className="success">✅ Votre article a bien été envoyé, il est actuellement en attente de modération.</div>
-            <Editor />
+            <Editor postFunction={ articlePost } />
           </div>
         </Modal>
       </React.Fragment>

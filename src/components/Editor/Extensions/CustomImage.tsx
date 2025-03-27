@@ -8,7 +8,7 @@ const CustomImage = ImageExtension.extend({
     return {
       ...this.parent?.(),
       width: {
-        default: 300,
+        default: '100%',
       },
       'data-filename': {
         default: null,
@@ -31,7 +31,7 @@ const CustomImage = ImageExtension.extend({
 
   addNodeView() {
     return ReactNodeViewRenderer(({ node, updateAttributes }) => {
-      const { src, width = 300 } = node.attrs
+      const { src, width } = node.attrs
       const imgRef = useRef<HTMLImageElement>(null)
       const oldBlobUrlRef = useRef<string | null>(null)
       const [imgWidth, setImgWidth] = useState(width)

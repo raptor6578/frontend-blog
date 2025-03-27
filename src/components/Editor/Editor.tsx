@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import { useEditor, EditorContent } from '@tiptap/react'
-import slugify from 'speakingurl'
 import { common, createLowlight } from 'lowlight'
 import 'highlight.js/styles/github.css'
 
@@ -10,15 +9,19 @@ import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
 import Link from '@tiptap/extension-link'
 import TextStyle from '@tiptap/extension-text-style'
-import Color from '@tiptap/extension-color'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 
 import ExitCode from './Extensions/ExitCode'
 import CustomImage from './Extensions/CustomImage'
+import CustomColor from './Extensions/CustomColor'
 import TipTapToolbar from './ToolBar'
 import './Editor.css'
 
-const Editor = () => {
+interface EditorComponent {
+  postFunction: (formData: FormData) => Promise<string>
+}
+
+const Editor: React.FC<EditorComponent> = ({ postFunction }) => {
 
   const [title, setTitle] = useState<string>('')
 
@@ -33,16 +36,15 @@ const Editor = () => {
       Link.configure({ openOnClick: false }),
       CodeBlockLowlight.configure({lowlight: createLowlight(common),}),
       TextStyle,
-      Color,
       Underline,
       ExitCode,
-      CustomImage
+      CustomImage,
+      CustomColor
     ],
     content: ''
   })
   
-  const prepareHtmlBeforePost = (html: string, title: string) => {
-    const slug = slugify(title)
+  const prepareHtmlBeforePost = (html: string) => {
     const htmlPrepared = html.replace(/<p>\s*<\/p>/g, '<br />')
     const parser = new DOMParser()
     const doc = parser.parseFromString(htmlPrepared, 'text/html')
@@ -51,7 +53,7 @@ const Editor = () => {
       const fileName = img.getAttribute('data-filename')
       if (!fileName) return
   
-      img.setAttribute('src', `/${slug}/${encodeURIComponent(fileName)}`)
+      img.setAttribute('src', encodeURIComponent(fileName))
       img.removeAttribute('data-filename')
       img.removeAttribute('data-original-src')
       img.removeAttribute('width')
@@ -106,15 +108,17 @@ const Editor = () => {
 
     const rawHtml = editor?.getHTML()
     const finalFiles = await getFinalFilesFromHtml(rawHtml ?? '')
-    const finalHtml = prepareHtmlBeforePost(rawHtml ?? '', title)
+    const finalHtml = prepareHtmlBeforePost(rawHtml ?? '')
     const formData = new FormData()
 
+    formData.append('title', title)
     formData.append('content', finalHtml)
 
     finalFiles.forEach(file => {
       formData.append('images', file)
     })
-   
+
+    await postFunction(formData)
     logFormData(formData)
   }
 

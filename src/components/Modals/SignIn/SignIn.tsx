@@ -7,7 +7,7 @@ import useSpinner from '../../../contexts/Spinner/useSpinner'
 import { signInValidator } from '../../../validators/authValidator'
 import axios from 'axios'
 
-const SignIn: React.FC = () => {
+const SignIn = () => {
 
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')

@@ -1,4 +1,4 @@
-import http from './httpService'
+import { http } from './httpService'
 
 export const login = async (email: string, password: string) => {
   const response = await http.post<{ token: string }>('/auth/signin', { email, password })

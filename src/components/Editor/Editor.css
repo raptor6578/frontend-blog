@@ -57,7 +57,7 @@
 .editor-custom form .toolbar .group-end {
   border-right: 1px solid #ccc;
   margin-right: 6px;
-  padding-right: 10px; /* pour éviter que le texte touche la barre */
+  padding-right: 10px; 
 }
 
 .editor-custom form .toolbar input[type="color"] {

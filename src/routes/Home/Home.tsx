@@ -1,10 +1,9 @@
-import React from 'react'
 import image1 from '../../assets/images/image1.jpg'
 import image2 from '../../assets/images/image2.png'
 import image3 from '../../assets/images/image3.jpg'
 import './Home.css'
 
-const Home: React.FC = () => {
+const Home = () => {
     return (
         <div className="home">
             <div className="article-item">
