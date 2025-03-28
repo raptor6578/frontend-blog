@@ -1,3 +1,4 @@
+import { Article } from '../types/Article'
 import { http, httpJson } from './httpService'
 
 const articlePost = async (formData: FormData) => {
@@ -7,7 +8,7 @@ const articlePost = async (formData: FormData) => {
 }
 
 const articleGet = async (slug: string) => {
-  const response = await httpJson.get<{ title: string, content: string, images?: File[] }>('/articles/' + slug)
+  const response = await httpJson.get<Article>('/articles/' + slug)
   return response.data
 }
 

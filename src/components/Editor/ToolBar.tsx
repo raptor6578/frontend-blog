@@ -1,6 +1,6 @@
 import { Editor } from '@tiptap/react'
 import { useRef } from 'react'
-import { TextSelection } from 'prosemirror-state'
+import { imageInsert } from '../../services/editorService'
 
 type Props = {
   editor: Editor | null
@@ -8,60 +8,26 @@ type Props = {
 
 const TipTapToolbar = ({ editor }: Props) => {
 
-  const inputFileRef = useRef<HTMLInputElement>(null)
-  const inputColorRef = useRef<HTMLInputElement>(null)
-  const inputHighlightRef = useRef<HTMLInputElement>(null)
+  const inputRefs = {
+    file: useRef<HTMLInputElement>(null),
+    color: useRef<HTMLInputElement>(null),
+    highlight: useRef<HTMLInputElement>(null),
+  }
 
   if (!editor) return null
-
-  const handleFileClick = () => {
-    inputFileRef.current?.click()
-  }
-
-  const handleColorClick = () => {
-    inputColorRef.current?.click()
-  }
-
-  const handleHighlightClick = () => {
-    inputHighlightRef.current?.click()
+  
+  const triggerInput = (key: keyof typeof inputRefs) => {
+    inputRefs[key].current?.click()
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
-    if (!file) return
-    const localUrl = URL.createObjectURL(file)
-    const insertContent = []
-    const doc = editor.getJSON()
-    const isOnlyEmptyParagraph = doc.content?.[0].type === 'paragraph' && doc.content.length === 1
-    if (isOnlyEmptyParagraph) {
-      insertContent.push({type: 'paragraph'})
-    }
-    insertContent.push({
-      type: 'image',
-      attrs: {
-        src: localUrl,
-        alt: '',
-        'data-filename': file.name,
-      },
-    },
-    {
-      type: 'paragraph',
-    })
-    editor
-    .chain()
-    .focus()
-    .insertContent(insertContent)
-    .command(({ tr, dispatch }) => {
-      const pos = tr.doc.content.size - 1
-      dispatch?.(tr.setSelection(TextSelection.create(tr.doc, pos)))
-      return true
-    })
-    .run()
+    imageInsert(editor, file!)
     e.target.value = '' 
   }
 
   return (
-    <div className="toolbar flex flex-wrap gap-2 mb-4 border-b pb-2">
+    <div className="toolbar">
       <button type="button" onClick={() => editor.chain().focus().toggleBold().run()} className={editor.isActive('bold') ? 'active' : ''}><strong>B</strong></button>
       <button type="button" onClick={() => editor.chain().focus().toggleItalic().run()} className={editor.isActive('italic') ? 'active' : ''}><i>i</i></button>
       <button type="button" onClick={() => editor.chain().focus().toggleUnderline().run()} className={editor.isActive('underline') ? 'active group-end' : 'group-end'}><u>S</u></button>
@@ -81,26 +47,26 @@ const TipTapToolbar = ({ editor }: Props) => {
         }
       }}>🔗</button>
       <button type="button" onClick={() => editor.chain().focus().unsetLink().run()} disabled={!editor.isActive('link')} className="group-end">❌</button>
-      <button type="button" onClick={handleFileClick}>🖼️</button>
+      <button type="button" onClick={() => triggerInput('file')}>🖼️</button>
       <input
         type="file"
         accept="image/*"
-        ref={inputFileRef}
+        ref={inputRefs.file}
         onChange={handleFileChange}
         className="hidden"
       />
-      <button type="button" onClick={handleColorClick}>🎨</button>
+      <button type="button" onClick={() => triggerInput('color')}>🎨</button>
       <input 
         type="color" 
-        ref={inputColorRef}
+        ref={inputRefs.color}
         onChange={(e) => editor.chain().focus().setTextColor(e.target.value).run()}
         title="Changer la couleur du texte"
         className="hidden"
       />
-      <button type="button" onClick={handleHighlightClick} className="group-end"><i className="fa-solid fa-highlighter"></i></button>
+      <button type="button" onClick={() => triggerInput('highlight')} className="group-end"><i className="fa-solid fa-highlighter"></i></button>
       <input 
         type="color" 
-        ref={inputHighlightRef}
+        ref={inputRefs.highlight}
         onChange={(e) => editor.chain().focus().setHighlight(e.target.value).run()}
         title="Changer la couleur de surlignage"
         className="hidden"

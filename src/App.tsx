@@ -6,6 +6,7 @@ import SignIn from './components/Modals/SignIn/SignIn'
 import SignUp from './components/Modals/SignUp/SignUp'
 import Spinner from './components/Spinner/Spinner'
 import ArticlePost from './components/Modals/ArticlePost/ArticlePost'
+import './assets/css/hljs-vscode-dark.css'
 
 const App: React.FC = () => {
 

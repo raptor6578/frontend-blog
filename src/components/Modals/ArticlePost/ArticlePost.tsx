@@ -7,7 +7,7 @@ import { articlePost } from '../../../services/articleService'
 
 const ArticlePost = () => {
 
-    const { modalArticlePostIsOpen, closeArticlePostModal } = useModal()!
+    const { modalArticlePostIsOpen, modalArticleObject, closeArticlePostModal } = useModal()!
 
     const afterOpenModal = () => {
       console.log('afterOpenModal')
@@ -29,7 +29,7 @@ const ArticlePost = () => {
           </div>
           <div className="container-article-post">
             <div className="success">✅ Votre article a bien été envoyé, il est actuellement en attente de modération.</div>
-            <Editor postFunction={ articlePost } />
+            <Editor postFunction={ articlePost } document={modalArticleObject} />
           </div>
         </Modal>
       </React.Fragment>

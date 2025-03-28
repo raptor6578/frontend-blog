@@ -96,15 +96,6 @@
   outline: none;
 }
 
-.editor-custom form .editor .ProseMirror pre {
-  background: #f5f5f5;
-  padding: 1em;
-  border-radius: 6px;
-  font-family: monospace;
-  white-space: pre;
-  overflow-x: auto;
-}
-
 .editor-custom form .editor .ProseMirror img {
   pointer-events: auto;
   user-select: none;

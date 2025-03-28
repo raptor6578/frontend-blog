@@ -17,7 +17,7 @@ const Nav: React.FC = () => {
             {isAuthenticated ? 
             <>
              <li><a className="nav-links" onClick={logout}>Déconnexion</a></li>
-             <li><a className="nav-links" onClick={openArticlePostModal}>Déposer un article</a></li>
+             <li><a className="nav-links" onClick={() => openArticlePostModal()}>Déposer un article</a></li>
             </>
             : 
             <>

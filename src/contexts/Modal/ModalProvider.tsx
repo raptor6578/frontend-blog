@@ -1,5 +1,6 @@
 import React, { ReactNode, useState } from 'react'
 import ModalContext from './ModalContext'
+import { Article } from '../../types/Article'
 
 interface ModalProviderProps {
   children: ReactNode
@@ -10,6 +11,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const [modalIsOpen, setIsOpen] = useState<boolean>(false)
   const [modalSignUpIsOpen, setModalSignUpIsOpen] = useState<boolean>(false)
   const [modalArticlePostIsOpen, setModalArticlePostIsOpen] = useState<boolean>(false)
+  const [modalArticleObject, setModalArticleObject] = useState<Article | undefined>(undefined)
 
   const openModal = () => setIsOpen(true)
   const closeModal = () => setIsOpen(false)
@@ -17,7 +19,12 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const openSignUpModal = () => setModalSignUpIsOpen(true)
   const closeSignUpModal = () => setModalSignUpIsOpen(false)
 
-  const openArticlePostModal = () => setModalArticlePostIsOpen(true)
+  const openArticlePostModal = (article?: Article) => {
+    if (article) {
+      setModalArticleObject(article)
+    }
+    setModalArticlePostIsOpen(true)
+  }
   const closeArticlePostModal = () => setModalArticlePostIsOpen(false)
 
   return (
@@ -30,7 +37,8 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
       closeSignUpModal,
       modalArticlePostIsOpen,
       openArticlePostModal,
-      closeArticlePostModal
+      closeArticlePostModal,
+      modalArticleObject
     }}>
       {children}
     </ModalContext.Provider>
