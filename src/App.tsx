@@ -5,7 +5,7 @@ import AppRoutes from './AppRoutes'
 import SignIn from './components/Modals/SignIn/SignIn'
 import SignUp from './components/Modals/SignUp/SignUp'
 import Spinner from './components/Spinner/Spinner'
-import ArticlePost from './components/Modals/ArticlePost/ArticlePost'
+import Article from './components/Modals/Article/Article'
 import './assets/css/hljs-vscode-dark.css'
 
 const App: React.FC = () => {
@@ -21,7 +21,7 @@ const App: React.FC = () => {
       </Layout>
       <SignIn />
       <SignUp />
-      <ArticlePost />
+      <Article />
       <Spinner />
     </BrowserRouter>
   )

@@ -23,6 +23,7 @@ const Article = () => {
           setContent(prepareHtmlBeforeView(articleData.content, slug!))
           closeSpinner()
         } catch (error) {
+          closeSpinner()
           console.error('Error fetching article:', error)
         }
       }

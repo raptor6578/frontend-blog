@@ -20,9 +20,8 @@ const getFilesFromHtml = async (html: string): Promise<File[]> => {
 }
 
 const prepareHtmlBeforePost = (html: string) => {
-  const htmlPrepared = html.replace(/<p>\s*<\/p>/g, '<br />')
   const parser = new DOMParser()
-  const doc = parser.parseFromString(htmlPrepared, 'text/html')
+  const doc = parser.parseFromString(html, 'text/html')
   doc.querySelectorAll('img[data-filename]').forEach(img => {
     const fileName = img.getAttribute('data-filename')
     if (!fileName) return
@@ -40,11 +39,18 @@ const prepareHtmlBeforePost = (html: string) => {
 const prepareHtmlBeforeView = (html: string, slug: string) => {
   const parser = new DOMParser()
   const doc = parser.parseFromString(html, 'text/html')
+  doc.querySelectorAll('p').forEach(p => {
+    const isEmpty = !p.textContent?.trim() && !p.querySelector('*')
+    if (isEmpty) {
+      const br = doc.createElement('br')
+      p.replaceWith(br)
+    }
+  })
   doc.querySelectorAll('img[src]').forEach(img => {
     const src = img.getAttribute('src')
     if (src) {
       img.setAttribute('src', `http://localhost:8888/api/images/articles/${slug}/${src}`)
-      img.setAttribute('style', 'max-width:1300px; text-align:center')
+      img.setAttribute('style', 'max-width:1300px')
       const wrapper = doc.createElement('div')
       wrapper.style.textAlign = 'center'
       wrapper.appendChild(img.cloneNode(true))

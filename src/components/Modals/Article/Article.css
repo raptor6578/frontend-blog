@@ -1,4 +1,4 @@
-.article-post {
+.article-modal {
   min-width: 1340px;
   max-width: 1340px;
   height: 100%;
@@ -25,7 +25,7 @@
   z-index: 1;
 }
 
-.article-post .modal-header {
+.article-modal .modal-header {
   display: flex;
   background-color:rgb(85, 133, 177);
   justify-content: space-between;
@@ -48,7 +48,7 @@
   padding: 5px;
 }
 
-.container-article-post {
+.container-article-modal {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -56,22 +56,31 @@
   min-height: 0;
 }
 
-.container-article-post .success {
-  background-color: rgba(0, 0, 255, 0.1);
+.container-article-modal .message {
   border-radius: 4px;
-  color: blue;
   font-size: 14px;
   min-width: 0;
   margin: 10px;
-  border: 1px solid rgba(64, 64, 223, 0.5);
   display: flex;
   flex-direction: column;
   padding: 20px;
   box-sizing: border-box;
 }
 
+.container-article-modal .success {
+  color: blue;
+  background-color: rgba(0, 0, 255, 0.1);
+  border: 1px solid rgba(64, 64, 223, 0.5);
+}
+
+.container-article-modal .error {
+  color: red;
+  border: 1px solid rgba(223,64,90,.5);
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
 @media (max-width: 1340px) {
-  .article-post {
+  .article-modal {
     width: 100%;
     height: 100%;
     min-width: 0;

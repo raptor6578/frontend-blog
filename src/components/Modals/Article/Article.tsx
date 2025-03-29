@@ -1,16 +1,19 @@
 import React from 'react'
-import './ArticlePost.css'
+import './Article.css'
 import Modal from 'react-modal'
 import useModal from '../../../contexts/Modal/useModal'
 import Editor from '../../Editor/Editor'
-import { articlePost } from '../../../services/articleService'
+import { articlePost, articlePut } from '../../../services/articleService'
 
-const ArticlePost = () => {
+const Article = () => {
 
     const { modalArticlePostIsOpen, modalArticleObject, closeArticlePostModal } = useModal()!
+    const [message, setMessage] = React.useState<string>('')
+    const [error, setError] = React.useState<string>('')
 
     const afterOpenModal = () => {
-      console.log('afterOpenModal')
+      setError('')
+      setMessage('')
     }
 
     return (
@@ -20,16 +23,23 @@ const ArticlePost = () => {
           isOpen={modalArticlePostIsOpen}
           onRequestClose={closeArticlePostModal}
           onAfterOpen={afterOpenModal}
-          className="article-post"
+          className="article-modal"
           overlayClassName="overlay"
         >
           <div className="modal-header">
             <h3>📰 Déposer un article</h3> 
             <button onClick={closeArticlePostModal}>X</button>
           </div>
-          <div className="container-article-post">
-            <div className="success">✅ Votre article a bien été envoyé, il est actuellement en attente de modération.</div>
-            <Editor postFunction={ articlePost } document={modalArticleObject} />
+          <div className="container-article-modal">
+            {message && <div className="message success">✅ {message}</div>}
+            {error && <div className="message error">❌ {error}</div>}
+            <Editor 
+              postFunction={ articlePost } 
+              putFunction={ articlePut }
+              document={modalArticleObject} 
+              setMessage={setMessage} 
+              setError={setError} 
+            />
           </div>
         </Modal>
       </React.Fragment>
@@ -37,4 +47,4 @@ const ArticlePost = () => {
 
 }
 
-export default ArticlePost
+export default Article
