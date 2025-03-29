@@ -20,9 +20,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const closeSignUpModal = () => setModalSignUpIsOpen(false)
 
   const openArticlePostModal = (article?: Article) => {
-    if (article) {
-      setModalArticleObject(article)
-    }
+    setModalArticleObject(article)
     setModalArticlePostIsOpen(true)
   }
   const closeArticlePostModal = () => setModalArticlePostIsOpen(false)

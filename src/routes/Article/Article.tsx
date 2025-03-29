@@ -29,7 +29,7 @@ const Article = () => {
   
       if (slug) articleLoader()
         
-    }, [slug])
+    }, [slug, openSpinner, closeSpinner])
     
     const handleEditArticle = () => {
         openArticlePostModal(articleData!)

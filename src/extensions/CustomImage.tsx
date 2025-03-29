@@ -1,9 +1,9 @@
 import { Image as ImageExtension } from '@tiptap/extension-image'
 import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const CustomImage = ImageExtension.extend({
-
+  name: 'customImage',
   addAttributes() {
     return {
       ...this.parent?.(),
@@ -15,7 +15,7 @@ const CustomImage = ImageExtension.extend({
         parseHTML: element => element.getAttribute('data-filename'),
         renderHTML: attributes => {
           if (!attributes['data-filename']) return {}
-          return { 'data-filename': attributes['data-filename'] }
+          return { 'data-filename': attributes['data-filename'].toLowerCase() }
         },
       },
       'data-original-src': {
@@ -36,6 +36,44 @@ const CustomImage = ImageExtension.extend({
       const oldBlobUrlRef = useRef<string | null>(null)
       const [imgWidth, setImgWidth] = useState(width)
 
+      const generateFileName = (src: string) => src.split('/').pop() || `image-${Date.now()}.jpg`
+
+      useEffect(() => {
+        const isHttp = src.startsWith('http')
+        const alreadyConverted = node.attrs['data-original-src']
+
+        if (isHttp && !alreadyConverted) {
+          (async () => {
+            try {
+              const response = await fetch(src)
+              const blob = await response.blob()
+              const originalFileName = generateFileName(src)
+              const blobUrl = URL.createObjectURL(blob)
+
+              const tempImg = new Image()
+              tempImg.src = blobUrl
+              tempImg.onload = () => {
+                const baseWidth = tempImg.naturalWidth
+
+                updateAttributes({
+                  src: blobUrl,
+                  width: baseWidth,
+                  'data-original-src': src,
+                  'data-filename': originalFileName.toLowerCase(),
+                })
+
+                setImgWidth(baseWidth)
+              }
+            } catch (err) {
+              console.warn('[CustomImage] Conversion failed:', err)
+            }
+          })()
+        } else if (!width && imgRef.current?.naturalWidth) {
+          setImgWidth(imgRef.current.naturalWidth)
+        }
+      }, [src, width, node.attrs, updateAttributes])
+
+      
       const handleResize = (e: React.MouseEvent) => {
         const startX = e.clientX
         const startWidth = imgRef.current?.offsetWidth || 0
@@ -94,7 +132,6 @@ const CustomImage = ImageExtension.extend({
           }
         }
         
-
         document.addEventListener('mousemove', onMouseMove)
         document.addEventListener('mouseup', onMouseUp)
       }

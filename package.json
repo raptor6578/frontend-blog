@@ -21,7 +21,7 @@
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
     "axios": "^1.8.4",
-    "emoji-mart": "^5.6.0",
+    "hljs": "^6.2.3",
     "joi": "^17.13.3",
     "lowlight": "^3.3.0",
     "react": "^19.0.0",
@@ -32,7 +32,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
-    "@types/emoji-mart": "^3.0.14",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@types/react-modal": "^3.16.3",

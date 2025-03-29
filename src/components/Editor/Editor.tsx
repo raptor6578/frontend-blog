@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { EditorContent } from '@tiptap/react'
 import TipTapToolbar from './ToolBar'
 import { buildForm } from '../../services/editorService'
 import { useEditorInstance } from '../../hooks/useEditorInstance'
+import { prepareHtmlBeforeView } from '../../services/editorService'
 import './Editor.css'
 
 interface EditorComponent {
@@ -10,6 +11,7 @@ interface EditorComponent {
   document?: {
     title: string
     content: string
+    slug: string
   }
 }
 
@@ -18,13 +20,18 @@ const Editor: React.FC<EditorComponent> = ({ postFunction, document }) => {
   const [title, setTitle] = useState<string>('')
   const editor = useEditorInstance()
 
-  console.log(document)
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = await buildForm(editor!, title)
     await postFunction(formData)
   }
+
+  useEffect(() => {
+    if (editor && document) {
+      setTitle(document.title)
+      editor.commands.setContent(prepareHtmlBeforeView(document.content, document.slug))
+    }
+  }, [editor, document])
 
   return (
     <div className="editor-custom">

@@ -44,7 +44,7 @@ const prepareHtmlBeforeView = (html: string, slug: string) => {
     const src = img.getAttribute('src')
     if (src) {
       img.setAttribute('src', `http://localhost:8888/api/images/articles/${slug}/${src}`)
-      img.setAttribute('style', 'max-width:1300px, text-align:center')
+      img.setAttribute('style', 'max-width:1300px; text-align:center')
       const wrapper = doc.createElement('div')
       wrapper.style.textAlign = 'center'
       wrapper.appendChild(img.cloneNode(true))
@@ -67,7 +67,7 @@ const imageInsert = (editor: Editor, file: File) => {
     insertContent.push({type: 'paragraph'})
   }
   insertContent.push({
-    type: 'image',
+    type: 'customImage',
     attrs: {
       src: localUrl,
       alt: '',
