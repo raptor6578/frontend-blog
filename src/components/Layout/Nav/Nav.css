@@ -2,31 +2,34 @@
   display: flex;
   align-items: center;
   background-color: rgb(73, 122, 169);
-  height: 40px;
+  height: 45px;
 }
 
-nav {
+.nav nav {
+  font-size: var(--text-md);
   display: flex;
   justify-content: flex-start;
-  max-width: 1300px;
+  max-width: 1000px;
   width: 100%;
   margin: 0 auto;
 }
 
-nav ul {
+.nav nav ul {
   display: flex;
   list-style: none;
+  padding: 0;
+  margin: 0 auto;
 }
 
-nav ul li {
+.nav nav ul li {
   display: flex;
 }
 
-nav ul li:hover {
+.nav nav ul li:hover {
   background-color: rgb(85, 133, 177);
 }
 
-nav ul li .nav-links{
+.nav nav ul li .nav-links{
   color: #ffffffe2;
   text-decoration: none;
   padding: 10px;

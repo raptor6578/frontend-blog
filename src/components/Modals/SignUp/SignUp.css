@@ -6,7 +6,6 @@
   transform: translate(-50%, -50%);
   margin: 0 auto;
   background-color: white;
-  padding: 50px 40px 50px 40px;
   z-index: 2;
   border-radius: 5px;
 }
@@ -37,6 +36,7 @@
   padding: 5px;
 }
 .container-signup {
+  padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;

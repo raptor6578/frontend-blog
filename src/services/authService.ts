@@ -1,10 +1,12 @@
+import { User } from '../types/User'
 import { http } from './httpService'
 
 export const login = async (email: string, password: string) => {
-  const response = await http.post<{ token: string }>('/auth/signin', { email, password })
-  const { token } = response.data
-  localStorage.setItem('authToken', token)
-  return token
+  const response = await http.post<{ token: string, user: User }>('/auth/signin', { email, password })
+  const { token, user } = response.data
+  localStorage.setItem('token', token)
+  localStorage.setItem('user', JSON.stringify(user))
+  return response.data
 }
 
 export const register = async (email: string, password: string) => {
@@ -14,5 +16,6 @@ export const register = async (email: string, password: string) => {
 }
 
 export const logout = () => {
-  localStorage.removeItem('authToken')
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
 }

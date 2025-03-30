@@ -21,6 +21,7 @@
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
     "axios": "^1.8.4",
+    "date-fns": "^4.1.0",
     "hljs": "^6.2.3",
     "joi": "^17.13.3",
     "lowlight": "^3.3.0",
