@@ -27,7 +27,7 @@
 
 .article-modal .modal-header {
   display: flex;
-  background-color:rgb(85, 133, 177);
+  background-color: var(--color-1);
   justify-content: space-between;
   padding: 5px
 }
@@ -52,32 +52,15 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  color: rgb(73, 73, 73);
+  color: var(--color-text1);
   min-height: 0;
 }
 
 .container-article-modal .message {
-  border-radius: 4px;
-  font-size: 14px;
-  min-width: 0;
-  margin: 10px;
-  display: flex;
-  flex-direction: column;
+  margin: 20px;
   padding: 20px;
-  box-sizing: border-box;
 }
 
-.container-article-modal .success {
-  color: blue;
-  background-color: rgba(0, 0, 255, 0.1);
-  border: 1px solid rgba(64, 64, 223, 0.5);
-}
-
-.container-article-modal .error {
-  color: red;
-  border: 1px solid rgba(223,64,90,.5);
-  background-color: rgba(255, 0, 0, 0.1);
-}
 
 @media (max-width: 1340px) {
   .article-modal {

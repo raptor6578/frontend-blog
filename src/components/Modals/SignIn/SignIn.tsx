@@ -67,7 +67,7 @@ const SignIn = () => {
           <div className="container-signin">
             <h2>Connexion</h2>
             {(errors.length > 0) && 
-            <div className='error'> 
+            <div className='message error'> 
             { errors.map((error, index) => ( 
               <p key={index}><span role="img" aria-label="Erreur">❌</span> {error}</p>
             ))}

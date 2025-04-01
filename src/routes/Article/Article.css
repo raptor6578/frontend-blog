@@ -3,6 +3,13 @@
   width: 100%;
   margin: 0 auto;
   border: 1px solid rgb(230, 226, 226);
+}
+.article-view .first-separator {
+  margin-bottom: 2rem;
+}
+
+.article-view .last-separator{
+  margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -22,7 +29,8 @@
 }
 
 .article-view h1 {
-  color: rgb(19, 99, 174);
+  color: var(--color-text2);
+  font-size: 2rem;
   margin-bottom: 3rem;
 }
 

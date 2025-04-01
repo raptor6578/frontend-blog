@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useState, useCallback } from 'react'
 import SpinnerContext from './SpinnerContext'
 
 interface SpinnerProviderProps {
@@ -8,8 +8,8 @@ interface SpinnerProviderProps {
 const SpinnerProvider: React.FC<SpinnerProviderProps> = ({ children }) => {
   const [spinnerIsOpen, setIsOpen] = useState<boolean>(false)
 
-  const openSpinner = () => setIsOpen(true)
-  const closeSpinner = () => setIsOpen(false)
+  const openSpinner = useCallback(() => setIsOpen(true), [])
+  const closeSpinner  = useCallback(() => setIsOpen(false), [])
 
   return (
     <SpinnerContext.Provider value={{ spinnerIsOpen, openSpinner, closeSpinner }}>

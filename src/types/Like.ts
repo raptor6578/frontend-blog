@@ -5,7 +5,7 @@ import { LikeValue } from '../enums/LikeValue'
 
 export interface Like {
   _id: string
-  voter: User
+  voter: string | User
   contentType: ContentType
   targetId: Comment | Article
   likedAt: string

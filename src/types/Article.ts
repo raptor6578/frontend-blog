@@ -1,4 +1,6 @@
 import { User } from "./User"
+import { Comment } from "./Comment"
+import { Like } from "./Like"
 
 export interface Article {
   _id: string
@@ -8,6 +10,6 @@ export interface Article {
   content: string
   imagesNames?: string[]
   publishedAt: string
-  comments: string[]
-  likes: string[]
+  comments: Comment[]
+  likes: Like[]
 }

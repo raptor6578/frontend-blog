@@ -7,6 +7,7 @@
 
 .nav nav {
   font-size: var(--text-md);
+  font-family:Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: flex-start;
   max-width: 1000px;
@@ -18,7 +19,7 @@
   display: flex;
   list-style: none;
   padding: 0;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .nav nav ul li {
@@ -44,5 +45,8 @@
 
 }
 
-@media (max-width: 650px) {
+@media (max-width: 1000px) {
+  .nav nav ul {
+    margin: 0 auto;
+  }
 }

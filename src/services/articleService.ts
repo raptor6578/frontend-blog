@@ -18,4 +18,6 @@ const articleGet = async (slug: string) => {
   return response.data
 }
 
+
+
 export { articlePost, articlePut, articleGet}

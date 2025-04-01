@@ -73,13 +73,13 @@ const SignUp = () => {
           <div className="container-signup">
             <h2>Inscription</h2>
             {(errors.length > 0) && 
-            <div className='error'> 
+            <div className='message error'> 
             { errors.map((error, index) => ( 
               <p key={index}><span role="img" aria-label="Erreur">❌</span> {error}</p>
             ))}
             </div>
             }
-            {success && <div className='success'><p><span role="img" aria-label="Succès">✅</span> {success}</p></div>}
+            {success && <div className='message success'><p><span role="img" aria-label="Succès">✅</span> {success}</p></div>}
             <form onSubmit={handleSubmit}>
               <label htmlFor="email">Email</label>
               <input 

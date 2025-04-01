@@ -4,11 +4,11 @@ import { Like } from './Like'
 
 export interface Comment {
   _id: string
-  author: User[]
+  author: User
   contentType: ContentType
   targetId: string
   content: string
   postedAt: string
   likes: Like[]
-  parentComment: Comment[]
+  parentComment: Comment
 }
