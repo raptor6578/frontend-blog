@@ -36,6 +36,13 @@ const prepareHtmlBeforePost = (html: string) => {
   return doc.body.innerHTML
 }
 
+const extractTextFromHTML = (html: string, maxLength: number = 250) => {
+  const div = document.createElement('div')
+  div.innerHTML = html
+  const text = div.textContent || div.innerText || ''
+  return text.slice(0, maxLength).trim()
+}
+
 const prepareHtmlBeforeView = (html: string, slug: string) => {
   const parser = new DOMParser()
   const doc = parser.parseFromString(html, 'text/html')
@@ -130,6 +137,7 @@ const buildForm = async (editor: Editor, title: string, logs = false) => {
     getFilesFromHtml,
     prepareHtmlBeforePost,
     prepareHtmlBeforeView,
+    extractTextFromHTML,
     imageInsert,
     logsFormData,
     buildForm

@@ -1,19 +1,29 @@
-.article-view .separator {
+.article .article-header {
+  font-size: 0.9rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.article .separator {
   display: flex;
   width: 100%;
   margin: 0 auto;
   border: 1px solid rgb(230, 226, 226);
 }
-.article-view .first-separator {
-  margin-bottom: 2rem;
+.article .first-separator {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 }
 
-.article-view .last-separator{
+.article .last-separator{
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
-.article-view img {
+.article img {
   display: block;
   width: 100%;
   max-width: 100%;
@@ -22,37 +32,13 @@
   border-radius: 8px;
 }
 
-.article-view .title {
+.article .title {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.article-view h1 {
-  color: var(--color-text2);
-  font-size: 2rem;
-  margin-bottom: 3rem;
-}
-
-.article-view .toolbar {
-  font-size: 0.9rem;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.article-view .published {
-  display: flex;
-}
-
-.article-view .action {
-  display: flex;
-}
-
-.article-view .title .action .fa {
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-left: 10px;
+.article h1 {
+  color: var(--color-3);
+  font-size: 1.5rem;
 }

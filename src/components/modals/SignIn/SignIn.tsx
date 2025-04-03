@@ -15,7 +15,7 @@ const SignIn = () => {
     const addErrors = (message: string) => setErrors(errors => [...errors, message])
     const clearErrors = () => setErrors([])
     const { login } = useAuth()!
-    const { modalIsOpen, closeModal } = useModal()!
+    const { modalSignInIsOpen, closeSignInModal } = useModal()!
     const { openSpinner, closeSpinner } = useSpinner()!
     const afterOpenModal = () => clearErrors() 
 
@@ -34,7 +34,7 @@ const SignIn = () => {
         openSpinner()
         await login(email, password)
         closeSpinner()
-        closeModal()
+        closeSignInModal()
       } catch (error) {
         if (axios.isAxiosError(error)) {
           closeSpinner()
@@ -55,14 +55,14 @@ const SignIn = () => {
       <React.Fragment>
         <Modal
           contentLabel="Connexion"
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
+          isOpen={modalSignInIsOpen}
+          onRequestClose={closeSignInModal}
           onAfterOpen={afterOpenModal}
           className="signin"
           overlayClassName="overlay"
         >
           <div className="close-modal">
-            <button onClick={closeModal}>X</button>
+            <button onClick={closeSignInModal}>X</button>
           </div>
           <div className="container-signin">
             <h2>Connexion</h2>

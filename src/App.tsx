@@ -2,10 +2,10 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import AppRoutes from './AppRoutes'
-import SignIn from './components/Modals/SignIn/SignIn'
-import SignUp from './components/Modals/SignUp/SignUp'
+import SignIn from './components/modals/SignIn/SignIn'
+import SignUp from './components/modals/SignUp/SignUp'
 import Spinner from './components/Spinner/Spinner'
-import Article from './components/Modals/Article/Article'
+import Article from './components/modals/Article/Article'
 import './assets/css/hljs-vscode-dark.css'
 
 const App: React.FC = () => {

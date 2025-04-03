@@ -8,13 +8,13 @@ interface ModalProviderProps {
 
 const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 
-  const [modalIsOpen, setIsOpen] = useState<boolean>(false)
+  const [modalSignInIsOpen, setModalSignInIsOpen] = useState<boolean>(false)
   const [modalSignUpIsOpen, setModalSignUpIsOpen] = useState<boolean>(false)
   const [modalArticlePostIsOpen, setModalArticlePostIsOpen] = useState<boolean>(false)
   const [modalArticleObject, setModalArticleObject] = useState<Article | undefined>(undefined)
 
-  const openModal = () => setIsOpen(true)
-  const closeModal = () => setIsOpen(false)
+  const openSignInModal = () => setModalSignInIsOpen(true)
+  const closeSignInModal = () => setModalSignInIsOpen(false)
 
   const openSignUpModal = () => setModalSignUpIsOpen(true)
   const closeSignUpModal = () => setModalSignUpIsOpen(false)
@@ -27,9 +27,9 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 
   return (
     <ModalContext.Provider value={{ 
-      modalIsOpen,
-      openModal, 
-      closeModal,
+      modalSignInIsOpen,
+      openSignInModal, 
+      closeSignInModal,
       modalSignUpIsOpen,
       openSignUpModal,
       closeSignUpModal,

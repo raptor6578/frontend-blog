@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { InternalAxiosRequestConfig } from 'axios';
+import { InternalAxiosRequestConfig } from 'axios'
 
 const create = {
   baseURL: 'http://localhost:8888/api'

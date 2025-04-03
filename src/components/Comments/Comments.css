@@ -1,14 +1,14 @@
-.comment h3 {
+.comments h3 {
   margin-bottom: 1rem;
 }
 
-.comment-item .comment-content {
+.comments-item .comments-content {
   font-size: 1rem;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
 }
 
-.comment textarea {
+.comments textarea {
   width: 100%;
   height: 100px;
   padding: 10px;
@@ -17,7 +17,7 @@
   margin-bottom: 1rem;
 }
 
-.comment button {
+.comments .send {
   background-color: #4CAF50;
   color: white;
   padding: 10px 20px;

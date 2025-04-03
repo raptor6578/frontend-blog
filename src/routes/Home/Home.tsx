@@ -1,63 +1,35 @@
-import image1 from '../../assets/images/image1.jpg'
-import image2 from '../../assets/images/image2.png'
-import image3 from '../../assets/images/image3.jpg'
+import { useState, useEffect } from 'react'
+import { Link } from "react-router-dom"
+import { articlesGet } from '../../services/articleService'
+import { extractTextFromHTML } from '../../services/editorService'
+import type { Article } from '../../types/Article'
 import './Home.css'
 
 const Home = () => {
+
+    const [articles, setArticles] = useState<Article[]>([])
+
+    useEffect(() => {
+        const fetchArticles = async () => {
+            const data = await articlesGet()
+            setArticles(data)
+        }
+        fetchArticles()
+    }, [])
+
     return (
         <div className="home">
-            <div className="article-item">
-            <h3>Titre de l'article</h3>
-            <img src={image1} alt="Image de l'article" />
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni unde, alias veniam excepturi
-                itaque sequi quibusdam error repudiandae maxime iusto optio </p>
-                <br />
-            <a href="#">Lire la suite</a>
-            </div>
-            <div className="article-item">
-            <h3>Titre de l'article</h3>
-            <img src={image2} alt="Image de l'article" />
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni unde, alias veniam excepturi
-                itaque sequi quibusda quaerat velit dolores dolore! 
-                Laudantium a pariatur natus blanditiis.</p>
-                <br />
-            </div>
-            <div className="article-item">
-            <h3>Titre de l'article</h3>
-            <img src={image3} alt="Image de l'article" />
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni unde, alias veniam excepturi
-                itaque sequi quibusdam error repure! 
-                Laudantium a pariatur natus blanditiis.</p>
-                <br />
-            <a href="#">Lire la suite</a>
-            </div>
-            <div className="article-item">
-            <h3>Titre de l'article</h3>
-            <img src={image1} alt="Image de l'article" />
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni unde, alias veniam excepturi
-                itaque sequi quibusdam error repudiandae mat dolores dolore! 
-                Laudantium a pariatur natus blanditiis.</p>
-                <br />
-            <a href="#">Lire la suite</a>
-            </div>
-            <div className="article-item">
-            <h3>Titre de l'article</h3>
-            <img src={image2} alt="Image de l'article" />
-            <p>Lorem ipsum dolor sit amet coneniam excepturi
-                itaque sequi quibusdam error repudiandae maxime iusto optio quaerat velit dolores dolore! 
-                Laudantium a pariatur natus blanditiis.</p>
-                <br />
-            <a href="#">Lire la suite</a>
-            </div>
-            <div className="article-item">
-            <h3>Titre de l'article</h3>
-            <img src={image3} alt="Image de l'article" />
-            <p>Lorem ipsum dolor sit ame unde, alias veniam excepturi
-                itaque sequi quibusdam error repudiandae maxime iusto optio quaerat velit dolores dolore! 
-                Laudantium a pariatur natus blanditiis.</p>
-                <br />
-            <a href="#">Lire la suite</a>
-            </div>
+            {articles.map((article) => (
+                <div className="article-item" key={article._id}>
+                    <h3>{article.title}</h3>
+                    <img src={"http://localhost:8888/api/images/articles/" + "/" + article.slug + "/" + article.imageNames![0]} 
+                        alt="Image de l'article" 
+                        loading="lazy"
+                    />
+                    <p>{extractTextFromHTML(article.content, 250)}</p>
+                    <Link to={'/article/' + article.slug }>Lire la suite.</Link>
+                </div>
+            ))}
         </div>
     )
 }

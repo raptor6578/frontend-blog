@@ -1,7 +1,8 @@
-import React from 'react'
-import axios from 'axios'
+import React, { useState } from 'react'
 import useAuth from '../../contexts/Auth/useAuth'
+import useModal from '../../contexts/Modal/useModal'
 import { like, unlike } from '../../services/likeService'
+import ActionButton from '../ui/ActionButton/ActionButton'
 import type { Like } from '../../types/Like'
 
 import './Likes.css'
@@ -14,42 +15,49 @@ interface LikesTypes {
 
 const Likes:React.FC<LikesTypes> = ({ likes, contentType, targetId }) => {
 
-  const { user } = useAuth()!
-  const [ localLikes, setLocalLikes ] = React.useState<Like[]>(likes)
+  const { user, isAuthenticated } = useAuth()!
+  const { openSignInModal } = useModal()!
+  const [ localLikes, setLocalLikes ] = useState<Like[]>(likes)
+  const [ isLoading, setIsLoading ] = useState<boolean>(false)
 
   const likedIndex = localLikes.findIndex(item => item.voter === user?._id)
   const isLiked = likedIndex !== -1
+  const totalLikes = localLikes.length
 
-  const handleLike = async () => {
-    try {
-      const likeResponse = await like(contentType, targetId)
-      setLocalLikes(prev => [...prev, likeResponse])
-    } catch (err) {
-      const error = axios.isAxiosError(err)
-        ? err.response?.data?.message || "Une erreur réseau est survenue."
-        : "Une erreur inconnue est survenue."
-      console.log(error)
-    }
+  const addLike = async (contentType: string, targetId: string) => {
+    const likeResponse = await like(contentType, targetId)
+    setLocalLikes(prev => [...prev, likeResponse])
   }
 
-  const handleUnlike = async () => {
+  const deleteLike = async (likeId: string) => {
+    await unlike(likeId)
+    setLocalLikes(prev => prev.filter((_, i) => i !== likedIndex))
+  }
+
+  const handleLike = async () => {
+    if (!isAuthenticated) {
+      openSignInModal()
+      return
+    }  
+    setIsLoading(true)
     try {
-      await unlike(localLikes[likedIndex]._id)
-      setLocalLikes(prev => prev.filter((_, i) => i !== likedIndex))
-    } catch (err) {
-      const error = axios.isAxiosError(err)
-        ? err.response?.data?.message || "Une erreur réseau est survenue."
-        : "Une erreur inconnue est survenue."
-      console.log(error)
+      await (isLiked
+        ? deleteLike(localLikes[likedIndex]._id)
+        : addLike(contentType, targetId))
+      setIsLoading(false)
+    } catch {
+      setIsLoading(false)
     }
   }
 
   return (
     <span className="like">
-    { isLiked 
-      ? <i onClick={() => handleUnlike()} className="fa fa-solid fa-thumbs-up"></i>
-      : <i onClick={() => handleLike()} className="fa fa-regular fa-thumbs-up"></i>
-    }
+      <ActionButton 
+      icon={ isLiked && isAuthenticated ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'} 
+      text={totalLikes} 
+      onClick={handleLike} 
+      disabled={isLoading} 
+    />
     </span>
   )
 

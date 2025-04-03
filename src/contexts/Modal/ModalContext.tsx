@@ -2,9 +2,9 @@ import { createContext } from 'react'
 import { Article } from '../../types/Article'
 
 interface ModalContextType {
-  modalIsOpen: boolean
-  openModal: () => void
-  closeModal: () => void
+  modalSignInIsOpen: boolean
+  openSignInModal: () => void
+  closeSignInModal: () => void
   modalSignUpIsOpen: boolean
   openSignUpModal: () => void
   closeSignUpModal: () => void

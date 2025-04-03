@@ -8,7 +8,7 @@ export interface Article {
   title: string
   slug: string
   content: string
-  imagesNames?: string[]
+  imageNames?: string[]
   publishedAt: string
   comments: Comment[]
   likes: Like[]

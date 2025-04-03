@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 
 const Nav: React.FC = () => {
 
-  const { openModal, openSignUpModal, openArticlePostModal } = useModal()!
+  const { openSignInModal, openSignUpModal, openArticlePostModal } = useModal()!
   const { isAuthenticated, logout } = useAuth()!
 
   return (
@@ -21,7 +21,7 @@ const Nav: React.FC = () => {
             </>
             : 
             <>
-              <li><a className="nav-links" onClick={openModal}>Connexion</a></li>
+              <li><a className="nav-links" onClick={openSignInModal}>Connexion</a></li>
               <li><a className="nav-links" onClick={openSignUpModal}>Inscription</a></li>
             </>
             }
