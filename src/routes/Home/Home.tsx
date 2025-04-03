@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { articlesGet } from '../../services/articleService'
 import { extractTextFromHTML } from '../../services/editorService'
+import SkeletonLoading from '../../components/SkeletonLoading/SkeletonLoading'
 import type { Article } from '../../types/Article'
 import './Home.css'
 
@@ -16,6 +17,10 @@ const Home = () => {
         }
         fetchArticles()
     }, [])
+    
+    if (articles.length === 0) {
+        return <SkeletonLoading />
+    }
 
     return (
         <div className="home">
