@@ -4,6 +4,7 @@ import Modal from 'react-modal'
 import useModal from '../../../contexts/Modal/useModal'
 import Editor from '../../Editor/Editor'
 import { articlePost, articlePut } from '../../../services/articleService'
+import { If, Then } from '../../ui/directives'
 
 const Article = () => {
 
@@ -31,8 +32,12 @@ const Article = () => {
             <button onClick={closeArticlePostModal}>X</button>
           </div>
           <div className="container-article-modal">
-            {message && <div className="message success">✅ {message}</div>}
-            {error && <div className="message error">❌ {error}</div>}
+            <If condition={message}>
+              <Then><div className="message success">✅ {message}</div></Then>
+            </If>
+            <If condition={error}>
+              <Then><div className="message error">❌ {error}</div></Then>
+            </If>
             <Editor 
               postFunction={ articlePost } 
               putFunction={ articlePut }

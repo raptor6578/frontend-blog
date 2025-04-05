@@ -7,6 +7,7 @@ import { commentPost } from '../../services/commentService'
 import Likes from '../Likes/Likes'
 import type { Comment } from '../../types/Comment'
 import './Comments.css'
+import { For, If, Then, Else } from '../ui/directives'
 
 interface CommentsType {
   comments: Comment[]
@@ -52,8 +53,15 @@ const Comments:React.FC<CommentsType> = ({ comments, contentType, targetId }) =>
 
   return (
       <div id="comments" className="comments">
-        {localComments.length === 0 ? <h3>Aucun commentaire</h3> : <h3>Commentaires</h3>}
-        {localComments!.map((comment) => (
+        <If condition={localComments.length > 0}>
+          <Then>
+            <h3>Commentaires</h3>
+          </Then>
+          <Else>
+            <h3>Aucun commentaire</h3>
+          </Else>
+        </If>
+        <For each={localComments} render={(comment) => (
           <div key={comment._id} className="comments-item">
             <div className="comments-header">
               <strong>{comment.author.username}</strong>
@@ -62,8 +70,12 @@ const Comments:React.FC<CommentsType> = ({ comments, contentType, targetId }) =>
             </div>
             <p className="comments-content">{comment.content}</p>
           </div>
-        ))}
-        {commentError && <p className="message error">{commentError}</p>}
+        )} /> 
+        <If condition={commentError}>
+          <Then>
+            <p className="message error">{commentError}</p>
+          </Then>
+        </If>
         <div className="comments-item"></div>
         <form onSubmit={handleCommentSubmit} className="comments-form">
           <h3>Laissez un commentaire</h3>

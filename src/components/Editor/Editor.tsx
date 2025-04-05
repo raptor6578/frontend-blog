@@ -4,7 +4,6 @@ import TipTapToolbar from './ToolBar'
 import { buildForm } from '../../services/editorService'
 import { useEditorInstance } from '../../hooks/useEditorInstance'
 import { prepareHtmlBeforeView } from '../../services/editorService'
-import axios from 'axios'
 import useSpinner from '../../contexts/Spinner/useSpinner'
 import './Editor.css'
 
@@ -29,6 +28,7 @@ const Editor: React.FC<EditorComponent> = ({
 }) => {
 
   const [title, setTitle] = useState<string>('')
+  const [description, setDescription] = useState<string>('')
   const editor = useEditorInstance()
   const { openSpinner, closeSpinner } = useSpinner()!
 
@@ -50,12 +50,11 @@ const Editor: React.FC<EditorComponent> = ({
       setMessage(response)
       closeSpinner()
     } catch (err) {
-      const message = axios.isAxiosError(err)
-        ? err.response?.data?.message || "Une erreur réseau est survenue."
-        : "Une erreur inconnue est survenue."
-  
-      setError(message)
-      closeSpinner()
+      if (err instanceof Error) {
+        console.error(err)
+        setError(err.message)
+        closeSpinner()
+      }
     }
   }
   
@@ -70,6 +69,7 @@ const Editor: React.FC<EditorComponent> = ({
     <div className="editor-custom">
       <form onSubmit={handleSubmit}>  
         <input onChange={(e) => setTitle(e.target.value)} value={title} type="text" name="title" placeholder="Titre de l'article" />
+        <input onChange={(e) => setDescription(e.target.value)} value={description} type="text" name="description" placeholder="Description de l'article" />
         <div className="editor-wrapper">
           <TipTapToolbar editor={editor} />
           <EditorContent editor={editor} className="editor" />

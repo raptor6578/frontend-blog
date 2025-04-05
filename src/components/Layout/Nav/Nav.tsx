@@ -3,6 +3,7 @@ import "./Nav.css"
 import useModal from '../../../contexts/Modal/useModal'
 import useAuth from '../../../contexts/Auth/useAuth'
 import { Link } from "react-router-dom"
+import { If, Then, Else } from "../../ui/directives"
 
 const Nav: React.FC = () => {
 
@@ -14,17 +15,16 @@ const Nav: React.FC = () => {
       <nav>
         <ul>
           <li><Link className="nav-links" to="/">Accueil</Link></li>
-            {isAuthenticated ? 
-            <>
-             <li><a className="nav-links" onClick={logout}>Déconnexion</a></li>
-             <li><a className="nav-links" onClick={() => openArticlePostModal()}>Déposer un article</a></li>
-            </>
-            : 
-            <>
+          <If condition={isAuthenticated}>
+            <Then>
+              <li><a className="nav-links" onClick={logout}>Déconnexion</a></li>
+              <li><a className="nav-links" onClick={() => openArticlePostModal()}>Déposer un article</a></li>
+            </Then>
+            <Else>
               <li><a className="nav-links" onClick={openSignInModal}>Connexion</a></li>
               <li><a className="nav-links" onClick={openSignUpModal}>Inscription</a></li>
-            </>
-            }
+            </Else>
+          </If>
         </ul>
       </nav>
     </div>

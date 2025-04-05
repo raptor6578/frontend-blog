@@ -5,6 +5,7 @@ import useAuth from '../../../contexts/Auth/useAuth'
 import useModal from '../../../contexts/Modal/useModal'
 import useSpinner from '../../../contexts/Spinner/useSpinner'
 import { signInValidator } from '../../../validators/authValidator'
+import { If, Then, For } from '../../ui/directives'
 import axios from 'axios'
 
 const SignIn = () => {
@@ -66,13 +67,15 @@ const SignIn = () => {
           </div>
           <div className="container-signin">
             <h2>Connexion</h2>
-            {(errors.length > 0) && 
-            <div className='message error'> 
-            { errors.map((error, index) => ( 
-              <p key={index}><span role="img" aria-label="Erreur">❌</span> {error}</p>
-            ))}
-            </div>
-            }
+            <If condition={errors.length > 0}>
+              <Then>
+                <div className='message error'> 
+                  <For each={errors} render={(error, index) => (
+                    <p key={index}><span role="img" aria-label="Erreur">❌</span> {error}</p>
+                  )} />
+                </div>
+              </Then>
+            </If>
             <form onSubmit={handleSubmit}>
               <label htmlFor="email">Email</label>
               <input 

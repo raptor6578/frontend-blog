@@ -5,6 +5,7 @@ import useAuth from '../../../contexts/Auth/useAuth'
 import useModal from '../../../contexts/Modal/useModal'
 import useSpinner from '../../../contexts/Spinner/useSpinner'
 import { signUpValidator } from '../../../validators/authValidator'
+import { If, Then, For } from '../../ui/directives'
 import axios from 'axios'
 
 const SignUp = () => {
@@ -44,7 +45,7 @@ const SignUp = () => {
       } catch (error) {
         if (axios.isAxiosError(error)) {
           closeSpinner()
-           const errorMessage = error.response ? error.response.data.message : "Une erreur réseau est survenue."
+          const errorMessage = error.response ? error.response.data.message : "Une erreur réseau est survenue."
           addErrors(errorMessage)
         }
       }
@@ -72,14 +73,22 @@ const SignUp = () => {
           </div>
           <div className="container-signup">
             <h2>Inscription</h2>
-            {(errors.length > 0) && 
-            <div className='message error'> 
-            { errors.map((error, index) => ( 
-              <p key={index}><span role="img" aria-label="Erreur">❌</span> {error}</p>
-            ))}
-            </div>
-            }
-            {success && <div className='message success'><p><span role="img" aria-label="Succès">✅</span> {success}</p></div>}
+            <If condition={errors.length > 0}>
+              <Then>
+                <div className='message error'>
+                <For each={errors} render={(error, index) => (
+                  <p key={index}><span role="img" aria-label="Erreur">❌</span> {error}</p>
+                )} />
+                </div>
+              </Then>
+            </If>
+            <If condition={success}>
+              <Then>
+                <div className='message success'>
+                  <p><span role="img" aria-label="Succès">✅</span> {success}</p>
+                </div>
+              </Then>
+            </If>
             <form onSubmit={handleSubmit}>
               <label htmlFor="email">Email</label>
               <input 
@@ -116,7 +125,6 @@ const SignUp = () => {
             <span className="twitter"><i className="fa-brands fa-twitter"></i></span>
             </div>
           </div>
-       
         </Modal>
       </React.Fragment>
   )
