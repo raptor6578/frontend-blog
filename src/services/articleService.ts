@@ -2,7 +2,7 @@ import { Article } from '../types/Article'
 import { http, httpJson } from './httpService'
 import { formatAxiosError } from './utils/formatAxiosError'
 
-const articlePost = async (formData: FormData) => {
+const postArticle = async (formData: FormData) => {
   try {
     const response = await http.post<{ message: string }>('/articles', formData)
     const { message } = response.data
@@ -12,7 +12,7 @@ const articlePost = async (formData: FormData) => {
   }
 }
 
-const articlePut = async (slug: string, formData: FormData) => {
+const putArticle = async (slug: string, formData: FormData) => {
   try {
     const response = await http.put<{ message: string }>('/articles/' + slug, formData)
     const { message } = response.data
@@ -22,7 +22,7 @@ const articlePut = async (slug: string, formData: FormData) => {
   }
 }
 
-const articleGet = async (slug?: string) => {
+const getArticle = async (slug?: string) => {
   try {
     const response =  await httpJson.get<Article>('/articles/' + slug)
     return response.data
@@ -31,7 +31,7 @@ const articleGet = async (slug?: string) => {
   }
 }
 
-const articlesGet = async () => {
+const getArticles = async () => {
   try {
     const response = await httpJson.get<Article[]>('/articles')
     return response.data
@@ -42,4 +42,4 @@ const articlesGet = async () => {
 
 
 
-export { articlePost, articlePut, articleGet, articlesGet}
+export {  postArticle, putArticle, getArticle, getArticles }

@@ -2,7 +2,7 @@ import { Comment } from '../types/Comment'
 import { httpJson as http } from './httpService'
 import { formatAxiosError } from './utils/formatAxiosError'
 
-const commentPost = async (contentType: string, targetId: string, content: string) => {
+const postComment = async (contentType: string, targetId: string, content: string) => {
   try {
     const response = await http.post<Comment>('/comments', {contentType, targetId, content})
     return response.data
@@ -11,4 +11,4 @@ const commentPost = async (contentType: string, targetId: string, content: strin
   }
 }
 
-export { commentPost }
+export { postComment }

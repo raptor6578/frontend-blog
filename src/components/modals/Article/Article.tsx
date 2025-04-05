@@ -3,7 +3,7 @@ import './Article.css'
 import Modal from 'react-modal'
 import useModal from '../../../contexts/Modal/useModal'
 import Editor from '../../Editor/Editor'
-import { articlePost, articlePut } from '../../../services/articleService'
+import { postArticle, putArticle } from '../../../services/articleService'
 import { If, Then } from '../../ui/directives'
 
 const Article = () => {
@@ -39,8 +39,8 @@ const Article = () => {
               <Then><div className="message error">❌ {error}</div></Then>
             </If>
             <Editor 
-              postFunction={ articlePost } 
-              putFunction={ articlePut }
+              postFunction={ postArticle } 
+              putFunction={ putArticle }
               document={modalArticleObject} 
               setMessage={setMessage} 
               setError={setError} 

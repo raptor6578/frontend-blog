@@ -5,7 +5,7 @@ import { like, unlike } from '../../services/likeService'
 import ActionButton from '../ui/ActionButton/ActionButton'
 import type { Like } from '../../types/Like'
 
-import './Likes.css'
+import './Like.css'
 
 interface LikesTypes {
   likes: Like[]

@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import useSpinner from '../../contexts/Spinner/useSpinner'
 import useAuth from '../../contexts/Auth/useAuth'
 import useModal from '../../contexts/Modal/useModal'
 import useDate from '../../hooks/useDate'
-import { commentPost } from '../../services/commentService'
-import Likes from '../Likes/Likes'
+import usePostComment from '../../hooks/usePostComment'
+import Like from '../Like/Like'
 import type { Comment } from '../../types/Comment'
 import './Comments.css'
 import { For, If, Then, Else } from '../ui/directives'
@@ -17,38 +16,22 @@ interface CommentsType {
 
 const Comments:React.FC<CommentsType> = ({ comments, contentType, targetId }) => {
 
-  const { openSpinner, closeSpinner } = useSpinner()!
   const { isAuthenticated } = useAuth()!
   const { formatDate } = useDate()
-  const  [comment, setComment ] = useState<string>('')
-  const [ commentError, setCommentError ] = useState<string>('')
+  const { post, error } = usePostComment()
   const [ localComments, setLocalComments ] = useState<Comment[]>(comments || [])
   const { openSignInModal} = useModal()!
   
-  const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const handleNewComment = async (formData: FormData) => {
     if (!isAuthenticated) {
       openSignInModal()
       return
     }
-    if (!comment) return 
-    setCommentError('')
-
-    try {
-      openSpinner()
-      const response = await commentPost(contentType, targetId, comment)
-      setLocalComments(prev => [...prev, response])
-      closeSpinner()
-    } catch (err) {
-        if (err instanceof Error) {
-          setCommentError(err.message)
-          closeSpinner()
-        }
-    }
-  }
-
-  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value)
+    const newComment = formData.get('comment')
+    if (typeof newComment !== 'string' || !newComment.trim()) return
+    const response = await post(contentType, targetId, newComment)
+    if (!response) return
+    setLocalComments(prev => [...prev, response])
   }
 
   return (
@@ -66,20 +49,20 @@ const Comments:React.FC<CommentsType> = ({ comments, contentType, targetId }) =>
             <div className="comments-header">
               <strong>{comment.author.username}</strong>
               <span> {formatDate(comment.postedAt)}</span>
-              <Likes likes={comment.likes} contentType='Comment' targetId={comment._id} />
+              <Like likes={comment.likes} contentType='Comment' targetId={comment._id} />
             </div>
             <p className="comments-content">{comment.content}</p>
           </div>
         )} /> 
-        <If condition={commentError}>
+        <If condition={error}>
           <Then>
-            <p className="message error">{commentError}</p>
+            <p className="message error">{error}</p>
           </Then>
         </If>
         <div className="comments-item"></div>
-        <form onSubmit={handleCommentSubmit} className="comments-form">
+        <form action={handleNewComment} className="comments-form">
           <h3>Laissez un commentaire</h3>
-          <textarea onChange={handleCommentChange} placeholder="Laissez un commentaire..." />
+          <textarea name="comment" placeholder="Laissez un commentaire..." />
           <button className="send">Envoyer</button>
         </form>
       </div>
