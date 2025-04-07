@@ -14,6 +14,7 @@ interface EditorComponent {
   setError: (error: string) => void
   document?: {
     title: string
+    description: string
     content: string
     slug: string
   }
@@ -37,7 +38,7 @@ const Editor: React.FC<EditorComponent> = ({
     if (!editor) return
   
     const slug = document?.slug
-    const formData = await buildForm(editor, title)
+    const formData = await buildForm(editor, title, description)
     setError('')
     setMessage('')
   
@@ -61,6 +62,7 @@ const Editor: React.FC<EditorComponent> = ({
   useEffect(() => {
     if (editor && document) {
       setTitle(document.title)
+      setDescription(document.description)
       editor.commands.setContent(prepareHtmlBeforeView(document.content, document.slug))
     }
   }, [editor, document])

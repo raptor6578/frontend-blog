@@ -1,11 +1,12 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import ModalProvider from './contexts/Modal/ModalProvider.tsx'
-import AuthProvider from './contexts/Auth/AuthProvider.tsx'
 import Modal from 'react-modal'
-import SpinnerProvider from './contexts/Spinner/SpinnerProvider.tsx'
 import { StrictMode } from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import ModalProvider from './contexts/Modal/ModalManager.tsx'
+import AuthProvider from './contexts/Auth/AuthProvider.tsx'
+import SpinnerProvider from './contexts/Spinner/SpinnerProvider.tsx'
 
 
 Modal.setAppElement('#root');
@@ -15,7 +16,9 @@ createRoot(document.getElementById('root')!).render(
     <AuthProvider>
       <SpinnerProvider>
         <ModalProvider>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ModalProvider>
       </SpinnerProvider>
     </AuthProvider>

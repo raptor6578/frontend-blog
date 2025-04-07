@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import useAuth from '../../contexts/Auth/useAuth'
-import useModal from '../../contexts/Modal/useModal'
 import { like, unlike } from '../../services/likeService'
 import ActionButton from '../ui/ActionButton/ActionButton'
+import useModal from '../../contexts/Modal/useModal'
 import type { Like } from '../../types/Like'
 
 import './Like.css'
@@ -16,9 +16,9 @@ interface LikesTypes {
 const Likes:React.FC<LikesTypes> = ({ likes, contentType, targetId }) => {
 
   const { user, isAuthenticated } = useAuth()!
-  const { openSignInModal } = useModal()!
   const [ localLikes, setLocalLikes ] = useState<Like[]>(likes)
   const [ isLoading, setIsLoading ] = useState<boolean>(false)
+  const { openModal } = useModal()
 
   const likedIndex = localLikes.findIndex(item => item.voter === user?._id)
   const isLiked = likedIndex !== -1
@@ -36,7 +36,7 @@ const Likes:React.FC<LikesTypes> = ({ likes, contentType, targetId }) => {
 
   const handleLike = async () => {
     if (!isAuthenticated) {
-      openSignInModal()
+      openModal('signIn')
       return
     }  
     setIsLoading(true)

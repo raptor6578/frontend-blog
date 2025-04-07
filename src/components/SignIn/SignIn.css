@@ -1,4 +1,4 @@
-.signup {
+.signIn {
   width: 350px;
   position: fixed;
   top: 50%;
@@ -35,56 +35,66 @@
   cursor: pointer;
   padding: 5px;
 }
-.container-signup {
-  padding: 30px;
+.container-signin {
   display: flex;
   flex-direction: column;
   align-items: center;
   color: rgb(73, 73, 73);
+  padding: 30px;
 }
-.container-signup h2 {
+.container-signin h2 {
   margin-bottom: 50px;
 }
 
-.container-signup .message {
+.container-signin .error {
+  width: 100%;
+  padding: 10px;
   margin-bottom: 40px;
-}
 
-.container-signup .error p,
-.container-signup .success p {
+}
+.container-signin .error p {
   margin: 5px;
 }
 
-.container-signup form {
+.container-signin form {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.container-signup form input {
+.container-signin form input {
   width: 100%;
   margin-top: 5px;
   margin-bottom: 15px;
 }
 
-.container-signup .oauth {
+.actions{
+  margin-top: 30px;
+}
+
+.actions p {
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.container-signin .oauth {
   padding-top: 30px;
 }
 
-.container-signup .oauth i {
+.container-signin .oauth i {
   margin: 10px;
   font-size: 30px;
 }
 
-.container-signup .oauth .facebook {
+.container-signin .oauth .facebook {
   color: #3b5998;
 }
 
-.container-signup .oauth .google {
+.container-signin .oauth .google {
   color: #db4437;
 }
 
-.container-signup .oauth .twitter {
+.container-signin .oauth .twitter {
   color: #00acee;
 }
 
@@ -92,11 +102,11 @@
   .close-modal {
     display: flex;
   }
-  .signup {
+  .signIn {
     width: 100%;
     height: 100%;
   }
-  .container-signup {
+  .container-signin {
     padding: 20px;
   }
 }

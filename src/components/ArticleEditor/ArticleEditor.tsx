@@ -1,35 +1,27 @@
 import React from 'react'
-import './Article.css'
-import Modal from 'react-modal'
-import useModal from '../../../contexts/Modal/useModal'
-import Editor from '../../Editor/Editor'
-import { postArticle, putArticle } from '../../../services/articleService'
-import { If, Then } from '../../ui/directives'
+import Editor from '../Editor/Editor'
+import { postArticle, putArticle } from '../../services/articleService'
+import { If, Then } from '../ui/directives'
+import useModal from '../../contexts/Modal/useModal'
+import type { Article } from '../../types/Article'
+import './ArticleEditor.css'
 
-const Article = () => {
+const ArticleEditor: React.FC<{ article: Article }> = ({ article }) => {
 
-    const { modalArticlePostIsOpen, modalArticleObject, closeArticlePostModal } = useModal()!
     const [message, setMessage] = React.useState<string>('')
     const [error, setError] = React.useState<string>('')
+    const { closeModal } = useModal()
 
-    const afterOpenModal = () => {
+  /*  const afterOpenModal = () => {
       setError('')
       setMessage('')
-    }
+    }*/
 
     return (
       <React.Fragment>
-        <Modal
-          contentLabel="Déposer un article"
-          isOpen={modalArticlePostIsOpen}
-          onRequestClose={closeArticlePostModal}
-          onAfterOpen={afterOpenModal}
-          className="article-modal"
-          overlayClassName="overlay"
-        >
           <div className="modal-header">
             <h3>📰 Déposer un article</h3> 
-            <button onClick={closeArticlePostModal}>X</button>
+            <button onClick={closeModal}>X</button>
           </div>
           <div className="container-article-modal">
             <If condition={message}>
@@ -41,15 +33,14 @@ const Article = () => {
             <Editor 
               postFunction={ postArticle } 
               putFunction={ putArticle }
-              document={modalArticleObject} 
+              document={article} 
               setMessage={setMessage} 
               setError={setError} 
             />
           </div>
-        </Modal>
       </React.Fragment>
   )
 
 }
 
-export default Article
+export default ArticleEditor

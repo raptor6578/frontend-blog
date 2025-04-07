@@ -17,7 +17,7 @@ const usePostSignIn = ({messages}: UseSignInProps) => {
   const { openSpinner, closeSpinner } = useSpinner()!
   const { addError, clearErrors } = messages
   const { signIn } = useAuth()!
-  const { closeSignInModal } = useModal()!
+  const { closeModal } = useModal()
 
   const post = async (email: string, password: string) => {
     clearErrors()
@@ -26,7 +26,7 @@ const usePostSignIn = ({messages}: UseSignInProps) => {
       const response = await postSignIn(email, password)
       signIn(response.token, response.user)
       closeSpinner()
-      closeSignInModal()
+      closeModal()
     } catch (err) {
         if (err instanceof Error) {
           addError(err.message)

@@ -1,14 +1,14 @@
 import React from "react"
 import "./Nav.css"
-import useModal from '../../../contexts/Modal/useModal'
 import useAuth from '../../../contexts/Auth/useAuth'
 import { Link } from "react-router-dom"
 import { If, Then, Else } from "../../ui/directives"
+import useModal from "../../../contexts/Modal/useModal"
 
 const Nav: React.FC = () => {
 
-  const { openSignInModal, openSignUpModal, openArticlePostModal } = useModal()!
   const { isAuthenticated, signOut } = useAuth()!
+  const { openModal } = useModal()
 
   return (
     <div className="nav">
@@ -18,11 +18,11 @@ const Nav: React.FC = () => {
           <If condition={isAuthenticated}>
             <Then>
               <li><a className="nav-links" onClick={signOut}>Déconnexion</a></li>
-              <li><a className="nav-links" onClick={() => openArticlePostModal()}>Déposer un article</a></li>
+              <li><a className="nav-links" onClick={() => openModal('articleEditor')}>Déposer un article</a></li>
             </Then>
             <Else>
-              <li><a className="nav-links" onClick={openSignInModal}>Connexion</a></li>
-              <li><a className="nav-links" onClick={openSignUpModal}>Inscription</a></li>
+              <li><a className="nav-links" onClick={() => openModal('signIn')}>Connexion</a></li>
+              <li><a className="nav-links"onClick={() => openModal('signUp')}>Inscription</a></li>
             </Else>
           </If>
         </ul>

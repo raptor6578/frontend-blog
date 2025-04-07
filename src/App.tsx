@@ -1,31 +1,25 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout/Layout'
 import AppRoutes from './AppRoutes'
-import SignIn from './components/modals/SignIn/SignIn'
-import SignUp from './components/modals/SignUp/SignUp'
 import Spinner from './components/Spinner/Spinner'
-import Article from './components/modals/Article/Article'
 import './assets/css/hljs-vscode-dark.css'
+import React from 'react'
 
-const App: React.FC = () => {
+const App = () => {
 
   return (
-    <BrowserRouter>
+    <React.Fragment>
       <Layout>
         <Routes>
-        {AppRoutes.map(route => (
+          {AppRoutes.map(route => (
             <Route key={route.path} path={route.path} element={<route.component />} />
           ))}
         </Routes>
       </Layout>
-      <SignIn />
-      <SignUp />
-      <Article />
       <Spinner />
-    </BrowserRouter>
+    </React.Fragment>
   )
-  
+
 }
 
 export default App

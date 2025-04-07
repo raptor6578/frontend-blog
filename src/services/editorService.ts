@@ -117,12 +117,13 @@ const logsFormData = (formData: FormData) => {
   }
 }
 
-const buildForm = async (editor: Editor, title: string, logs = false) => {
+const buildForm = async (editor: Editor, title: string, description: string, logs = false) => {
     const rawHtml = editor.getHTML()
     const finalFiles = await getFilesFromHtml(rawHtml ?? '')
     const finalHtml = prepareHtmlBeforePost(rawHtml ?? '')
     const formData = new FormData()
     formData.append('title', title)
+    formData.append('description', description)
     formData.append('content', finalHtml)
     finalFiles.forEach(file => {
       formData.append('images', file)

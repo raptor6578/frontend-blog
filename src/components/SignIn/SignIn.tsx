@@ -1,32 +1,25 @@
-import Modal from 'react-modal'
-import SignInForm from '../../forms/SignInForm'
-import useRequestMessages from '../../../hooks/useRequestMessages'
-import useModal from '../../../contexts/Modal/useModal'
-import { If, Then, For } from '../../ui/directives'
+import SignInForm from '../forms/SignInForm'
+import useRequestMessages from '../../hooks/useRequestMessages'
+import { If, Then, For } from '../ui/directives'
+import useModal from '../../contexts/Modal/useModal'
 
 import './SignIn.css'
+import React from 'react'
 
 const SignIn = () => {
 
-    const { modalSignInIsOpen, closeSignInModal } = useModal()!
     const messages = useRequestMessages()
-    const { errors, clearErrors } = messages
+    const { errors, /*clearErrors*/ } = messages
+    const { closeModal } = useModal()
 
-    const afterOpenModal = () => {
+   /* const afterOpenModal = () => {
       clearErrors() 
-    } 
+    }*/ 
   
     return (
-        <Modal
-          contentLabel="Connexion"
-          isOpen={modalSignInIsOpen}
-          onRequestClose={closeSignInModal}
-          onAfterOpen={afterOpenModal}
-          className="signin"
-          overlayClassName="overlay"
-        >
+        <React.Fragment>
           <div className="close-modal">
-            <button onClick={closeSignInModal}>X</button>
+            <button onClick={closeModal}>X</button>
           </div>
           <div className="container-signin">
             <h2>Connexion</h2>
@@ -45,12 +38,12 @@ const SignIn = () => {
               <p>Mot de passe oublié ? <a href="#">Réinitialisez-le</a></p>
             </div>
             <div className="oauth">
-            <span className="facebook"><i className="fa-brands fa-facebook"></i></span>
-            <span className="google"><i className="fa-brands fa-google"></i></span>
-            <span className="twitter"><i className="fa-brands fa-twitter"></i></span>
+              <span className="facebook"><i className="fa-brands fa-facebook"></i></span>
+              <span className="google"><i className="fa-brands fa-google"></i></span>
+              <span className="twitter"><i className="fa-brands fa-twitter"></i></span>
             </div>
           </div>   
-        </Modal>
+        </React.Fragment>
   )
 }
 

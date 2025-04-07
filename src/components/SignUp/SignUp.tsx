@@ -1,32 +1,23 @@
-import Modal from 'react-modal'
-import useModal from '../../../contexts/Modal/useModal'
-import SignUpForm from '../../forms/SignUpForm'
-import useRequestMessages from '../../../hooks/useRequestMessages'
-import { If, Then, For } from '../../ui/directives'
+import SignUpForm from '../forms/SignUpForm'
+import useRequestMessages from '../../hooks/useRequestMessages'
+import { If, Then, For } from '../ui/directives'
 import './SignUp.css'
+import React from 'react'
 
 const SignUp = () => {
 
-  const { modalSignUpIsOpen, closeSignUpModal } = useModal()!
   const messages = useRequestMessages()
-  const { errors, clearErrors, success, clearSuccess } = messages
+  const { errors, /*clearErrors,*/ success, /*clearSuccess*/ } = messages
 
-  const afterOpenModal = () => {
+  /*const afterOpenModal = () => {
     clearErrors()
     clearSuccess() 
-  } 
+  } */
 
   return (
-      <Modal
-        contentLabel="Inscription"
-        isOpen={modalSignUpIsOpen}
-        onRequestClose={closeSignUpModal}
-        onAfterOpen={afterOpenModal}
-        className="signup"
-        overlayClassName="overlay"
-      >
+      <React.Fragment>
         <div className="close-modal">
-          <button onClick={closeSignUpModal}>X</button>
+          <button>X</button>
         </div>
         <div className="container-signup">
           <h2>Inscription</h2>
@@ -53,7 +44,7 @@ const SignUp = () => {
           <span className="twitter"><i className="fa-brands fa-twitter"></i></span>
           </div>
         </div>
-      </Modal>
+      </React.Fragment>
   )
 }
 

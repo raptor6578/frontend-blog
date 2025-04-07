@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import useAuth from '../../contexts/Auth/useAuth'
-import useModal from '../../contexts/Modal/useModal'
 import useDate from '../../hooks/useDate'
 import usePostComment from '../../hooks/usePostComment'
+import useModal from '../../contexts/Modal/useModal'
 import Like from '../Like/Like'
+import { For, If, Then, Else } from '../ui/directives'
 import type { Comment } from '../../types/Comment'
 import './Comments.css'
-import { For, If, Then, Else } from '../ui/directives'
 
 interface CommentsType {
   comments: Comment[]
@@ -20,11 +20,11 @@ const Comments:React.FC<CommentsType> = ({ comments, contentType, targetId }) =>
   const { formatDate } = useDate()
   const { post, error } = usePostComment()
   const [ localComments, setLocalComments ] = useState<Comment[]>(comments || [])
-  const { openSignInModal} = useModal()!
+  const { openModal } = useModal()
   
   const handleNewComment = async (formData: FormData) => {
     if (!isAuthenticated) {
-      openSignInModal()
+      openModal('signIn')
       return
     }
     const newComment = formData.get('comment')
