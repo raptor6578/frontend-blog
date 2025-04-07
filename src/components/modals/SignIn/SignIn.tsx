@@ -1,59 +1,22 @@
-import React, { useState } from 'react'
-import './SignIn.css'
 import Modal from 'react-modal'
-import useAuth from '../../../contexts/Auth/useAuth'
+import SignInForm from '../../forms/SignInForm'
+import useRequestMessages from '../../../hooks/useRequestMessages'
 import useModal from '../../../contexts/Modal/useModal'
-import useSpinner from '../../../contexts/Spinner/useSpinner'
-import { signInValidator } from '../../../validators/authValidator'
 import { If, Then, For } from '../../ui/directives'
-import axios from 'axios'
+
+import './SignIn.css'
 
 const SignIn = () => {
 
-    const [email, setEmail] = useState<string>('')
-    const [password, setPassword] = useState<string>('')
-    const [errors, setErrors] = useState<string[]>([])
-    const addErrors = (message: string) => setErrors(errors => [...errors, message])
-    const clearErrors = () => setErrors([])
-    const { login } = useAuth()!
     const { modalSignInIsOpen, closeSignInModal } = useModal()!
-    const { openSpinner, closeSpinner } = useSpinner()!
-    const afterOpenModal = () => clearErrors() 
+    const messages = useRequestMessages()
+    const { errors, clearErrors } = messages
 
-    const validatorErrors = (email: string, password: string) => {
-      const validatorErrors = signInValidator(email, password)
-      validatorErrors.forEach(error => addErrors(error.message))
-      if (validatorErrors.length > 0) { 
-        return true 
-      } else {
-        return false
-      }
+    const afterOpenModal = () => {
+      clearErrors() 
     } 
-
-    const auth = async (email: string, password: string) => {
-      try {
-        openSpinner()
-        await login(email, password)
-        closeSpinner()
-        closeSignInModal()
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          closeSpinner()
-           const errorMessage = error.response ? error.response.data.message : "Une erreur réseau est survenue."
-          addErrors(errorMessage)
-        }
-      }
-    }
-    
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      clearErrors()
-      if (validatorErrors(email, password)) return
-      auth(email, password)
-    }
-
+  
     return (
-      <React.Fragment>
         <Modal
           contentLabel="Connexion"
           isOpen={modalSignInIsOpen}
@@ -76,27 +39,7 @@ const SignIn = () => {
                 </div>
               </Then>
             </If>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                value={email} 
-                className="input-text"
-                onInput={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)} 
-              />
-              <label htmlFor="password">Mot de passe</label>
-              <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                value={password} 
-                className="input-text"
-                onInput={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)} 
-              />
-              <button className="blue-button" type="submit">Connexion</button>
-            </form>
+            <SignInForm messages={messages} />
             <div className="actions">
               <p>Vous n'avez pas de compte ? <a href="#">Inscrivez-vous</a></p>
               <p>Mot de passe oublié ? <a href="#">Réinitialisez-le</a></p>
@@ -106,10 +49,8 @@ const SignIn = () => {
             <span className="google"><i className="fa-brands fa-google"></i></span>
             <span className="twitter"><i className="fa-brands fa-twitter"></i></span>
             </div>
-          </div>
-       
+          </div>   
         </Modal>
-      </React.Fragment>
   )
 }
 

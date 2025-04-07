@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react'
 import AuthContext from "./AuthContext"
-import * as AuthService from '../../services/authService'
 import { User } from '../../types/User'
 
 interface ModalProviderProps {
@@ -30,39 +29,24 @@ const AuthProvider: React.FC<ModalProviderProps> = ({ children }) => {
     }
   }, [])
   
-  const login = async (email: string, password: string) => {
-    try {
-      const response = await AuthService.login(email, password)
-      setIsAuthenticated(true)
-      setToken(response.token)
-      setUser(response.user)
-    } catch (error) {
-      if (error) {
-        setIsAuthenticated(false)
-        throw error
-      }
-    }
+  const signIn = async (token: string, user: User) => {
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', JSON.stringify(user))
+    setToken(token)
+    setUser(user)
+    setIsAuthenticated(true)
   }
 
-  const register = async (email: string, password: string) => {
-    try {
-      return await AuthService.register(email, password)
-    } catch (error) {
-      if (error) {
-        throw error
-      }
-    }
-  }
-
-  const logout = () => {
-    AuthService.logout()
+  const signOut = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
     setIsAuthenticated(false)
     setUser(null)
     setToken(null)
   }
 
   return (
-    <AuthContext.Provider value={{ login, register, logout, token, user, isAuthenticated }}>
+    <AuthContext.Provider value={{ signIn, signOut, token, user, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   )

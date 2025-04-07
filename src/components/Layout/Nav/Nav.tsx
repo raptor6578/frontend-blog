@@ -8,7 +8,7 @@ import { If, Then, Else } from "../../ui/directives"
 const Nav: React.FC = () => {
 
   const { openSignInModal, openSignUpModal, openArticlePostModal } = useModal()!
-  const { isAuthenticated, logout } = useAuth()!
+  const { isAuthenticated, signOut } = useAuth()!
 
   return (
     <div className="nav">
@@ -17,7 +17,7 @@ const Nav: React.FC = () => {
           <li><Link className="nav-links" to="/">Accueil</Link></li>
           <If condition={isAuthenticated}>
             <Then>
-              <li><a className="nav-links" onClick={logout}>Déconnexion</a></li>
+              <li><a className="nav-links" onClick={signOut}>Déconnexion</a></li>
               <li><a className="nav-links" onClick={() => openArticlePostModal()}>Déposer un article</a></li>
             </Then>
             <Else>

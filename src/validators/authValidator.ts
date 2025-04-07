@@ -12,8 +12,17 @@ const passwordConfirm = Joi.string().valid(Joi.ref('password')).messages({
   'any.only': 'Les mots de passe ne correspondent pas.'
 })
 
+const username = Joi.string().min(3).max(20).pattern(/^[a-zA-Z0-9_.-]{3,20}$/).required().messages({
+  'string.min': 'Votre nom d\'utilisateur doit contenir au moins 3 caractères.',
+  'string.max': 'Votre nom d\'utilisateur doit contenir au maximum 20 caractères.',
+  'string.empty': 'Un nom d\'utilisateur est requis.',
+  'any.required': 'Un nom d\'utilisateur est requis.',
+  'string.pattern.base': 'Votre nom d\'utilisateur ne doit contenir que des lettres, des chiffres, des tirets et des underscores.'
+})
+
 const signUpSchema = Joi.object({
     email: email,
+    username: username,
     password: password,
     passwordConfirm: passwordConfirm
 })
@@ -23,11 +32,11 @@ const signInSchema = Joi.object({
     password: password
 })
 
-export function signUpValidator(email: string, password: string, passwordConfirm: string) {
+export function signUpValidator(email: string, username: string, password: string, passwordConfirm: string) {
   if (!passwordConfirm) {
     return [{ message: "Veuillez confirmer votre mot de passe.", type: "passwordConfirm" }]
   }
-  const { error } = signUpSchema.validate({ email, password, passwordConfirm }, { abortEarly: false })
+  const { error } = signUpSchema.validate({ email, username, password, passwordConfirm }, { abortEarly: false })
   if (error) {
     return error.details.map(err => {
       if (err.path && err.path.length > 0) {
