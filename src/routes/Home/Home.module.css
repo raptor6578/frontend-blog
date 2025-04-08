@@ -4,7 +4,7 @@
   flex-wrap: wrap;
 }
 
-.article-item {
+.item {
   width: 32%;
   height: 550px;
   margin-bottom: 20px;
@@ -16,13 +16,13 @@
   border-radius: 5px;
 }
 
-.article-item img {
+.item img {
   width: 100%;
 }
 
 @media (max-width: 1024px) {
 
-  .article-item {
+  .item {
     width: 49%;
     margin-bottom: 20px;
   }
@@ -31,15 +31,12 @@
 
 @media (max-width: 650px) {
 
-  .article-item {
+  .item {
+    width: 100%;
     height: auto;
   }
-
-  .article-item {
-    width: 100%;
-  }
   
-  .article-item p {
+  .item p {
     padding-top: 10px;
   }
 

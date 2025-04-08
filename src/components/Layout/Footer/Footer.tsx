@@ -1,8 +1,8 @@
 import React from "react"
-import "./Footer.css"
+import styles from "./Footer.module.css"
 
 const Footer: React.FC = () => (
-  <div className="footer">
+  <div className={styles.footer}>
     <footer>
       <p>©2025 Damm Nicolas</p>
       <p>

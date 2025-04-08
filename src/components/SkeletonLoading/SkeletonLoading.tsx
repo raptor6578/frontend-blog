@@ -1,25 +1,25 @@
-import './SkeletonLoading.css'
+import styles from './SkeletonLoading.module.css'
 
 const SkeletonLoading = () => {
   return (
-    <div className="skeleton">
-      <div className="skeleton-title" />
-      <div className="skeleton-text-line" />
-      <div className="skeleton-text-line" />
-      <div className="skeleton-text-line short" />
-      <div className="skeleton-text-line ultra-short" />
-      <div className="skeleton-text-line ultra-short" />
-      <div className="skeleton-img"></div>
-      <div className="skeleton-text-line short" />
-      <div className="skeleton-text-line" />
-      <div className="skeleton-text-line" />
-      <div className="skeleton-text-line short" />
-      <div className="skeleton-text-line" />
-      <div className="skeleton-text-line" />
-      <div className="skeleton-text-line short" />
-      <div className="skeleton-text-line" />
-      <div className="skeleton-text-line" />
-      <div className="skeleton-text-line short" />
+    <div className={styles.skeleton}>
+      <div className={styles.skeletonTitle} />
+      <div className={styles.skeletonTextLine} />
+      <div className={styles.skeletonTextLine} />
+      <div className={`${styles.skeletonTextLine} ${styles.short}`} />
+      <div className={`${styles.skeletonTextLine} ${styles.ultraShort}`} />
+      <div className={`${styles.skeletonTextLine} ${styles.ultraShort}`} />
+      <div className={styles.skeletonImg}></div>
+      <div className={`${styles.skeletonTextLine} ${styles.short}`} />
+      <div className={styles.skeletonTextLine} />
+      <div className={styles.skeletonTextLine} />
+      <div className={`${styles.skeletonTextLine} ${styles.short}`} />
+      <div className={styles.skeletonTextLine} />
+      <div className={styles.skeletonTextLine} />
+      <div className={`${styles.skeletonTextLine} ${styles.short}`} />
+      <div className={styles.skeletonTextLine} />
+      <div className={styles.skeletonTextLine} />
+      <div className={`${styles.skeletonTextLine} ${styles.short}`} />
     </div>
   )
 }

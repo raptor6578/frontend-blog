@@ -5,27 +5,27 @@
   border-radius: 8px;
 }
 
-.skeleton-title {
+.skeletonTitle {
   height: 70px;
   width: 100%;
   margin-bottom: 3rem;
 }
 
-.skeleton-text-line {
+.skeletonTextLine {
   height: 20px;
   width: 100%;
   margin-bottom: 1rem;
 }
 
-.skeleton-text-line.short {
+.skeletonTextLine.short {
   width: 80%;
 }
 
-.skeleton-text-line.ultra-short {
+.skeletonTextLine.ultraShort {
   width: 50%;
 }
 
-.skeleton-img {
+.skeletonImg {
   display: block;
   width: 100%;
   max-width: 100%;

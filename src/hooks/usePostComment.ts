@@ -4,7 +4,7 @@ import { postComment } from '../services/commentService'
 
 const usePostComment = () => {
 
-  const { openSpinner, closeSpinner } = useSpinner()!
+  const { openSpinner, closeSpinner } = useSpinner()
   const [ error, setError ] = useState<string>('')
 
   const post = async (contentType: string, targetId: string, content: string) => {

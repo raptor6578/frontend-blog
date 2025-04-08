@@ -1,25 +1,21 @@
 import SignUpForm from '../forms/SignUpForm'
 import useRequestMessages from '../../hooks/useRequestMessages'
 import { If, Then, For } from '../ui/directives'
-import './SignUp.css'
 import React from 'react'
+
+import styles from './SignUp.module.css'
 
 const SignUp = () => {
 
   const messages = useRequestMessages()
-  const { errors, /*clearErrors,*/ success, /*clearSuccess*/ } = messages
-
-  /*const afterOpenModal = () => {
-    clearErrors()
-    clearSuccess() 
-  } */
+  const { errors, success } = messages
 
   return (
       <React.Fragment>
-        <div className="close-modal">
+        <div className={styles.closeModal}>
           <button>X</button>
         </div>
-        <div className="container-signup">
+        <div className={styles.container}>
           <h2>Inscription</h2>
           <If condition={errors.length > 0}>
             <Then>
@@ -38,10 +34,10 @@ const SignUp = () => {
             </Then>
           </If>  
           <SignUpForm messages={messages} />
-          <div className="oauth">
-          <span className="facebook"><i className="fa-brands fa-facebook"></i></span>
-          <span className="google"><i className="fa-brands fa-google"></i></span>
-          <span className="twitter"><i className="fa-brands fa-twitter"></i></span>
+          <div className={styles.oauth}>
+          <span className={styles.facebook}><i className="fa-brands fa-facebook"></i></span>
+          <span className={styles.google}><i className="fa-brands fa-google"></i></span>
+          <span className={styles.twitter}><i className="fa-brands fa-twitter"></i></span>
           </div>
         </div>
       </React.Fragment>

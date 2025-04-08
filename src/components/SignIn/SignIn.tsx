@@ -1,27 +1,23 @@
+import React from 'react'
 import SignInForm from '../forms/SignInForm'
 import useRequestMessages from '../../hooks/useRequestMessages'
 import { If, Then, For } from '../ui/directives'
 import useModal from '../../contexts/Modal/useModal'
 
-import './SignIn.css'
-import React from 'react'
+import styles from './SignIn.module.css'
 
 const SignIn = () => {
 
     const messages = useRequestMessages()
-    const { errors, /*clearErrors*/ } = messages
+    const { errors } = messages
     const { closeModal } = useModal()
-
-   /* const afterOpenModal = () => {
-      clearErrors() 
-    }*/ 
   
     return (
         <React.Fragment>
-          <div className="close-modal">
+          <div className={styles.closeModal}>
             <button onClick={closeModal}>X</button>
           </div>
-          <div className="container-signin">
+          <div className={styles.container}>
             <h2>Connexion</h2>
             <If condition={errors.length > 0}>
               <Then>
@@ -33,14 +29,14 @@ const SignIn = () => {
               </Then>
             </If>
             <SignInForm messages={messages} />
-            <div className="actions">
+            <div className={styles.actions}>
               <p>Vous n'avez pas de compte ? <a href="#">Inscrivez-vous</a></p>
               <p>Mot de passe oublié ? <a href="#">Réinitialisez-le</a></p>
             </div>
-            <div className="oauth">
-              <span className="facebook"><i className="fa-brands fa-facebook"></i></span>
-              <span className="google"><i className="fa-brands fa-google"></i></span>
-              <span className="twitter"><i className="fa-brands fa-twitter"></i></span>
+            <div className={styles.oauth}>
+              <span className={styles.facebook}><i className="fa-brands fa-facebook"></i></span>
+              <span className={styles.google}><i className="fa-brands fa-google"></i></span>
+              <span className={styles.twitter}><i className="fa-brands fa-twitter"></i></span>
             </div>
           </div>   
         </React.Fragment>

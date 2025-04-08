@@ -1,13 +1,13 @@
 import React from "react"
 import Search from "./Search/Search"
-import "./Header.css"
-import Social from "./Social/Social";
+import Social from "./Social/Social"
+import styles from "./Header.module.css"
 
 const Header: React.FC = () => (
-  <div className="header">
+  <div className={styles.header}>
     <header>
-      <div className="logo"><h1><span>💫 Nicolas Damm</span></h1></div>
-        <div className="header-right">
+      <div className={styles.logo}><h1><span>💫 Nicolas Damm</span></h1></div>
+        <div className={styles.headerRight}>
           <Social />
           <Search />
       </div>

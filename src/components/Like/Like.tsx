@@ -5,7 +5,7 @@ import ActionButton from '../ui/ActionButton/ActionButton'
 import useModal from '../../contexts/Modal/useModal'
 import type { Like } from '../../types/Like'
 
-import './Like.css'
+import styles from './Like.module.css'
 
 interface LikesTypes {
   likes: Like[]
@@ -15,7 +15,7 @@ interface LikesTypes {
 
 const Likes:React.FC<LikesTypes> = ({ likes, contentType, targetId }) => {
 
-  const { user, isAuthenticated } = useAuth()!
+  const { user, isAuthenticated } = useAuth()
   const [ localLikes, setLocalLikes ] = useState<Like[]>(likes)
   const [ isLoading, setIsLoading ] = useState<boolean>(false)
   const { openModal } = useModal()
@@ -51,7 +51,7 @@ const Likes:React.FC<LikesTypes> = ({ likes, contentType, targetId }) => {
   }
 
   return (
-    <span className="like">
+    <span className={styles.likes}>
       <ActionButton 
       icon={ isLiked && isAuthenticated ? 'fa-solid fa-thumbs-up' : 'fa-regular fa-thumbs-up'} 
       text={totalLikes} 

@@ -30,7 +30,7 @@
   background-color: rgb(85, 133, 177);
 }
 
-.nav nav ul li .nav-links{
+.nav nav ul li .navLink {
   color: #ffffffe2;
   text-decoration: none;
   padding: 10px;

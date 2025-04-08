@@ -18,12 +18,12 @@ header {
   color: rgb(103, 103, 103);
 }
 
-.header-right {
+.headerRight {
   display: flex;
   align-items: center;
 }
 
-.header-right i {
+.headerRight i {
   margin-right: 7px;
 }
 
@@ -37,7 +37,7 @@ header {
 
 @media (max-width: 650px) {
 
-  .header-right {
+  .headerRight {
     margin-top: 10px; 
   }
 

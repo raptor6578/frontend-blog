@@ -1,4 +1,4 @@
-.editor-custom {
+.editor {
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -6,14 +6,14 @@
   height: 100%;
 }
 
-.editor-custom form {
+.editor form {
   display: flex;
   min-height: 0;
   flex-direction: column;
   height: 100%;
 }
 
-.editor-custom form input[type="text"] {
+.editor form input[type="text"] {
   width: 100%;
   height: 35px;
   border: none;
@@ -21,17 +21,17 @@
   padding: 10px;
   box-sizing: border-box;
 }
-.editor-custom form input[name="title"] {
+.editor form input[name="title"] {
   border: 1px solid rgb(145, 145, 145);
 }
 
-.editor-custom form input[name="description"] {
+.editor form input[name="description"] {
   border-left: 1px solid rgb(145, 145, 145);
   border-right: 1px solid rgb(145, 145, 145);
   border-bottom: 1px solid rgb(145, 145, 145);
 }
 
-.editor-custom form .editor-wrapper {
+.editor form :global(.editor-wrapper) {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -40,35 +40,35 @@
   min-height: 0;
 }
 
-.editor-custom form .toolbar {
+.editor form .toolbar {
   border-left: 1px solid rgb(145, 145, 145);
   border-right: 1px solid rgb(145, 145, 145);
 }
 
-.editor-custom form .toolbar button {
+.editor form .toolbar button {
   padding: 10px;
   border: none;
   background: none;
   cursor: pointer;
 }
 
-.editor-custom form .toolbar button:hover {
+.editor form .toolbar button:hover {
   background: #0070f3;
   color: white;
 }
 
-.editor-custom form .toolbar button.active {
+.editor form .toolbar button.active {
   background: #0070f3;
   color: white;
 }
 
-.editor-custom form .toolbar .group-end {
+.editor form .toolbar .groupEnd {
   border-right: 1px solid #ccc;
   margin-right: 6px;
   padding-right: 10px; 
 }
 
-.editor-custom form .toolbar input[type="color"] {
+.editor form .toolbar input[type="color"] {
   width: '32px';
   height: '32px';
   padding: 0;
@@ -77,11 +77,11 @@
   cursor: 'pointer';
 }
 
-.editor-custom form .toolbar .hidden {
+.editor form .toolbar .hidden {
   display: none;
 }
 
-.editor-custom form .editor {
+.editor form :global(.editor) {
   border: 1px solid rgb(145, 145, 145);
   overflow: auto;
   padding: 2rem;
@@ -92,29 +92,29 @@
   min-height: 0;
 }
 
-.editor-custom form .editor .ProseMirror {
+.editor form .editor :global(.ProseMirror) {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
 }
 
-.editor-custom form .editor .ProseMirror:focus {
+.editor form  :global(.editor .ProseMirror:focus) {
   outline: none;
 }
 
-.editor-custom form .editor .ProseMirror img {
+.editor form  :global(.editor .ProseMirror) img {
   pointer-events: auto;
   user-select: none;
   -webkit-user-drag: none;
 }
 
-.resizable-image-wrapper {
+:global(.resizable-image-wrapper) {
   display: flex;
   justify-content: center;
 }
 
-.resizable-image-inner {
+:global(.resizable-image-inner) {
   position: relative;
   display: inline-block;
   border: 1px dashed #999;
@@ -122,7 +122,7 @@
   margin: 1.8rem auto;
 }
 
-.resizable-image-wrapper  span {
+:global(.resizable-image-wrapper)  span {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -134,18 +134,18 @@
   background: linear-gradient(135deg, transparent 50%, #d1d1d1 50%);
 }
 
-.resizable-image-wrapper img {
+:global(.resizable-image-wrapper) img {
   display: block;
   max-width: 100%;
   height: auto;
   border-radius: 8px;
 }
 
-.resizable-image-wrapper:hover span {
+:global(.resizable-image-wrapper:hover) span {
   display: block;
 }
 
-.submit-button {
+.submitButton {
   width: 100%;
   height: 50px;
   margin-bottom: 43px;
@@ -159,9 +159,3 @@
   cursor: pointer;
 }
 
-@media (max-width: 1000px) {
-
-  .editor-custom form .editor {
-    padding: 1.2rem;
-  }
-}

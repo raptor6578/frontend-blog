@@ -1,4 +1,4 @@
-.signIn {
+:global(.signUp) {
   width: 350px;
   position: fixed;
   top: 50%;
@@ -9,23 +9,16 @@
   z-index: 2;
   border-radius: 5px;
 }
-.overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-}
-.close-modal {
+
+.closeModal {
   height: 30px;
   background-color:rgb(85, 133, 177);
   display: flex;
   justify-content: flex-end;
   display: none;
 }
-.close-modal button {
+
+.closeModal button {
   background-color: transparent;
   border: none;
   color: white;
@@ -35,78 +28,68 @@
   cursor: pointer;
   padding: 5px;
 }
-.container-signin {
+.container {
+  padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: rgb(73, 73, 73);
-  padding: 30px;
 }
-.container-signin h2 {
+.container h2 {
   margin-bottom: 50px;
 }
 
-.container-signin .error {
-  width: 100%;
-  padding: 10px;
+.container .message {
   margin-bottom: 40px;
-
 }
-.container-signin .error p {
+
+.containerp .error p,
+.container .success p {
   margin: 5px;
 }
 
-.container-signin form {
+.container form {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.container-signin form input {
+.container form input {
   width: 100%;
   margin-top: 5px;
   margin-bottom: 15px;
 }
 
-.actions{
-  margin-top: 30px;
-}
-
-.actions p {
-  font-size: 13px;
-  margin-top: 10px;
-}
-
-.container-signin .oauth {
+.container .oauth {
   padding-top: 30px;
 }
 
-.container-signin .oauth i {
+.container .oauth i {
   margin: 10px;
   font-size: 30px;
 }
 
-.container-signin .oauth .facebook {
+.container .oauth .facebook {
   color: #3b5998;
 }
 
-.container-signin .oauth .google {
+.container .oauth .google {
   color: #db4437;
 }
 
-.container-signin .oauth .twitter {
+.container .oauth .twitter {
   color: #00acee;
 }
 
 @media (max-width: 650px) {
-  .close-modal {
+  .closeModal {
     display: flex;
   }
-  .signIn {
+  :global(.signUp) {
     width: 100%;
     height: 100%;
   }
-  .container-signin {
+  .container {
     padding: 20px;
   }
 }

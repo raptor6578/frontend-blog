@@ -4,7 +4,7 @@ import { For } from '../../components/ui/directives'
 import SkeletonLoading from '../../components/SkeletonLoading/SkeletonLoading'
 import useGetArticles from '../../hooks/useGetArticles'
 
-import './Home.css'
+import styles from './Home.module.css'
 
 const Home = () => {
 
@@ -15,9 +15,9 @@ const Home = () => {
   }
 
   return (
-    <div className="home">
+    <div className={styles.home}>
       <For each={articles} render={(article) => (
-        <div className="article-item" key={article._id}>
+        <div className={styles.item} key={article._id}>
           <h3>{article.title}</h3>
           <img src={"http://localhost:8888/api/images/articles/" + "/" + article.slug + "/" + article.imageNames![0]}
             alt="Image de l'article"

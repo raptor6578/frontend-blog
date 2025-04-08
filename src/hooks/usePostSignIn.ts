@@ -14,7 +14,7 @@ interface UseSignInProps {
 
 const usePostSignIn = ({messages}: UseSignInProps) => {
 
-  const { openSpinner, closeSpinner } = useSpinner()!
+  const { openSpinner, closeSpinner } = useSpinner()
   const { addError, clearErrors } = messages
   const { signIn } = useAuth()!
   const { closeModal } = useModal()

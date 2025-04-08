@@ -4,7 +4,7 @@ import useSpinner from '../../contexts/Spinner/useSpinner'
 
 const Spinner: React.FC = () => {
 
-  const { spinnerIsOpen } = useSpinner()!
+  const { spinnerIsOpen } = useSpinner()
 
   return (
     <div className="loading-spinner" style={{ display: spinnerIsOpen ? 'flex' : 'none' }}>

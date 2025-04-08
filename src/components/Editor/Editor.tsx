@@ -5,13 +5,17 @@ import { buildForm } from '../../services/editorService'
 import { useEditorInstance } from '../../hooks/useEditorInstance'
 import { prepareHtmlBeforeView } from '../../services/editorService'
 import useSpinner from '../../contexts/Spinner/useSpinner'
-import './Editor.css'
+import styles from './Editor.module.css'
 
 interface EditorComponent {
   postFunction: (formData: FormData) => Promise<string>
   putFunction: (slug: string, formData: FormData) => Promise<string>
-  setMessage: (message: string) => void
-  setError: (error: string) => void
+  messages: {
+    addError: (message: string) => void,
+    clearErrors: () => void,
+    addSuccess: (message: string) => void,
+    clearSuccess: () => void
+  }
   document?: {
     title: string
     description: string
@@ -22,16 +26,16 @@ interface EditorComponent {
 
 const Editor: React.FC<EditorComponent> = ({ 
   postFunction, 
-  putFunction, 
-  setMessage, 
-  setError, 
+  putFunction,
+  messages, 
   document 
 }) => {
 
   const [title, setTitle] = useState<string>('')
   const [description, setDescription] = useState<string>('')
   const editor = useEditorInstance()
-  const { openSpinner, closeSpinner } = useSpinner()!
+  const { openSpinner, closeSpinner } = useSpinner()
+  const { addSuccess, clearSuccess, addError, clearErrors } = messages
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -39,8 +43,8 @@ const Editor: React.FC<EditorComponent> = ({
   
     const slug = document?.slug
     const formData = await buildForm(editor, title, description)
-    setError('')
-    setMessage('')
+    clearErrors()
+    clearSuccess()
   
     try {
       openSpinner()
@@ -48,12 +52,12 @@ const Editor: React.FC<EditorComponent> = ({
         ? await putFunction(slug, formData)
         : await postFunction(formData)
       
-      setMessage(response)
+      addSuccess(response)
       closeSpinner()
     } catch (err) {
       if (err instanceof Error) {
         console.error(err)
-        setError(err.message)
+        addError(err.message)
         closeSpinner()
       }
     }
@@ -68,7 +72,7 @@ const Editor: React.FC<EditorComponent> = ({
   }, [editor, document])
 
   return (
-    <div className="editor-custom">
+    <div className={styles.editor}>
       <form onSubmit={handleSubmit}>  
         <input onChange={(e) => setTitle(e.target.value)} value={title} type="text" name="title" placeholder="Titre de l'article" />
         <input onChange={(e) => setDescription(e.target.value)} value={description} type="text" name="description" placeholder="Description de l'article" />
@@ -76,7 +80,7 @@ const Editor: React.FC<EditorComponent> = ({
           <TipTapToolbar editor={editor} />
           <EditorContent editor={editor} className="editor" />
         </div>  
-        <button className="submit-button" type="submit">
+        <button className={styles.submitButton} type="submit">
           Poster
         </button>
       </form>

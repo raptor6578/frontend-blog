@@ -12,7 +12,7 @@ interface UseSignUpProps {
 
 const usePostSignUp = ({messages}: UseSignUpProps) => {
 
-  const { openSpinner, closeSpinner } = useSpinner()!
+  const { openSpinner, closeSpinner } = useSpinner()
   const { addError, clearErrors, addSuccess, clearSuccess } = messages
 
   const post = async (email: string, username: string, password: string) => {

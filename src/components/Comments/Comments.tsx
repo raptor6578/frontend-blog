@@ -6,7 +6,7 @@ import useModal from '../../contexts/Modal/useModal'
 import Like from '../Like/Like'
 import { For, If, Then, Else } from '../ui/directives'
 import type { Comment } from '../../types/Comment'
-import './Comments.css'
+import styles from './Comments.module.css'
 
 interface CommentsType {
   comments: Comment[]
@@ -16,7 +16,7 @@ interface CommentsType {
 
 const Comments:React.FC<CommentsType> = ({ comments, contentType, targetId }) => {
 
-  const { isAuthenticated } = useAuth()!
+  const { isAuthenticated } = useAuth()
   const { formatDate } = useDate()
   const { post, error } = usePostComment()
   const [ localComments, setLocalComments ] = useState<Comment[]>(comments || [])
@@ -35,7 +35,7 @@ const Comments:React.FC<CommentsType> = ({ comments, contentType, targetId }) =>
   }
 
   return (
-      <div id="comments" className="comments">
+      <div id="comments" className={styles.comments}>
         <If condition={localComments.length > 0}>
           <Then>
             <h3>Commentaires</h3>
@@ -45,13 +45,13 @@ const Comments:React.FC<CommentsType> = ({ comments, contentType, targetId }) =>
           </Else>
         </If>
         <For each={localComments} render={(comment) => (
-          <div key={comment._id} className="comments-item">
-            <div className="comments-header">
+          <div key={comment._id} className={styles.item}>
+            <div className={styles.header}>
               <strong>{comment.author.username}</strong>
               <span> {formatDate(comment.postedAt)}</span>
               <Like likes={comment.likes} contentType='Comment' targetId={comment._id} />
             </div>
-            <p className="comments-content">{comment.content}</p>
+            <p className={styles.content}>{comment.content}</p>
           </div>
         )} /> 
         <If condition={error}>
@@ -59,11 +59,10 @@ const Comments:React.FC<CommentsType> = ({ comments, contentType, targetId }) =>
             <p className="message error">{error}</p>
           </Then>
         </If>
-        <div className="comments-item"></div>
-        <form action={handleNewComment} className="comments-form">
+        <form action={handleNewComment} className={styles.form}>
           <h3>Laissez un commentaire</h3>
           <textarea name="comment" placeholder="Laissez un commentaire..." />
-          <button className="send">Envoyer</button>
+          <button className={styles.send}>Envoyer</button>
         </form>
       </div>
   )

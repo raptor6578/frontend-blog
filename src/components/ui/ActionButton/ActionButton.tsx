@@ -1,5 +1,5 @@
 import React from 'react'
-import './ActionButton.css'
+import styles from './ActionButton.module.css'
 
 interface ActionButtonTypes {
   icon: string
@@ -10,7 +10,7 @@ interface ActionButtonTypes {
 
 const ActionButton:React.FC<ActionButtonTypes> = ({ icon, text, onClick, disabled }) => {
   return (
-    <button className="action-button" onClick={onClick} disabled={disabled}>
+    <button className={styles.button} onClick={onClick} disabled={disabled}>
       {text}<i className={`fa ${icon}`}></i>
     </button>
   )
