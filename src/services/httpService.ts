@@ -12,7 +12,7 @@ const createJson = {
 }
 
 const interceptors = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-  const token = localStorage.getItem('authToken')
+  const token = localStorage.getItem('token')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }

@@ -37,20 +37,20 @@ const Editor: React.FC<EditorComponent> = ({
   const { openSpinner, closeSpinner } = useSpinner()
   const { addSuccess, clearSuccess, addError, clearErrors } = messages
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleAction = async () => {
     if (!editor) return
   
     const slug = document?.slug
-    const formData = await buildForm(editor, title, description)
+
+    const form = await buildForm(editor, title, description)
     clearErrors()
     clearSuccess()
   
     try {
       openSpinner()
       const response = slug
-        ? await putFunction(slug, formData)
-        : await postFunction(formData)
+        ? await putFunction(slug, form)
+        : await postFunction(form)
       
       addSuccess(response)
       closeSpinner()
@@ -73,7 +73,7 @@ const Editor: React.FC<EditorComponent> = ({
 
   return (
     <div className={styles.editor}>
-      <form onSubmit={handleSubmit}>  
+      <form action={handleAction}>  
         <input onChange={(e) => setTitle(e.target.value)} value={title} type="text" name="title" placeholder="Titre de l'article" />
         <input onChange={(e) => setDescription(e.target.value)} value={description} type="text" name="description" placeholder="Description de l'article" />
         <div className="editor-wrapper">
